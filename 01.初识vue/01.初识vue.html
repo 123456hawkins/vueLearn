@@ -9,9 +9,17 @@
 </head>
 
 <body>
+    <!-- 
+        {{xxx}}中的xxx要写js表达式，并且配合组件一起使用
+        js表达式与js代码
+        1.表达式：一个表达式会产生一个值，可以放在任何一个需要值的地方
+        如：a,a+b,function1(),===y?'a':'b'
+        2.js代码：if语句，for语句
+     -->
     <!--准备好一个容器-->
+    <!-- 容器和实例的关系是一对一的关系 -->
     <div id="root">
-        <h1>hello{{name}}</h1>
+        <h1>hello{{name.toUpperCase()}}，{{address}}</h1>
     </div>
 
     <script type="text/javascript">
@@ -21,7 +29,8 @@
         new Vue({
             el:'#root',//el用于指定用于当前vue实列为哪个容器服务，值通常为css选择器字符串
             data:{//data用于存储数据，数据供el所指定的容器去使用，值暂时先写成一个对象
-                name:'hawkins'
+                name:'hawkins',
+                address:'qrqwer'
             }
         
         })
