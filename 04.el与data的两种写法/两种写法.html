@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>实例绑定的第二种写法</title>
+</head>
+<body>
+  <div id="root">你好，{{name}}</div>
+
+  <script>
+    const v= new Vue({
+      data:{
+        // el:'#root'//第一种写法
+        name:'hawkins'
+      }
+    })
+    console.log(v)
+    v.$mount('#root')//第二种写法 mount是挂载
+
+    new Vue({
+      // data的第二种写法
+        data () {
+          return {
+            name:'hawkins'
+          }
+        }
+    })
+    
+    
+  </script>
+</body>
+</html>

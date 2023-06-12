@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 通过一个对象去代理另一个对象的属性操作叫做数据代理
+    let number=19
+    let person={
+        name:'hawkins',
+        sex:'男',
+        // age:'18'//这种写法数据只能读，不能动态变换
+    }
+    Object.defineProperty(person,'age',{
+      // enumerable:true,//控制属性是否可以被枚举
+      // writable:true,//控制该属性是否可以被修改
+      // configurable:true,//控制该属性是否可以被删除
+      
+      // 当有人读取person的age属性是，get函数会被调用，且返回值是age的值
+      get(){
+        console.log('读取age属性')
+        return number
+      },
+
+      // 当有人修改person的age属性时，set函数就会被调用，且会收到修改的具体值
+      set(value){
+        console.log('修改了age属性')
+        number=value
+      }
+    })
+
+    let obj={x:100}
+    let obj2={y:200}
+    Object.defineProperty(obj2,'x',{
+      get(){
+        return obj.x
+      }
+    })
+  </script>
+</body>
+</html>

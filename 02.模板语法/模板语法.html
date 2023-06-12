@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="/js/vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+
+ <!--1.插值语法 
+        用于解析标签体内容，写法：{{内容}}，可以直接读取到data中的所有属性
+     2.指令语法
+        用于解析标签（包括标签属性，标签体内容，绑定事件）
+        写法：v-bind:href="xxx" xxx要为js表达式且可以直接读取到data中的所有属性-->
+  <div id="root">
+    <h1>插值语法</h1>
+    <h3>你好，我叫{{name}}</h3>
+    <br>
+    <h1>指令语法</h1>
+    <!-- v-bind绑定后href就变成表达式 -->
+    <a v-bind:href="URL">点我去百度</a>
+  </div>
+<script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          name:'hawkins',
+          URL:'https://www.baidu.com'
+        }
+      }
+  })
+</script>  
+</body>
+</html>
