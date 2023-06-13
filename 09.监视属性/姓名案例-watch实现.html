@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- watch和计算属性，在一般情况下推荐使用计算属性，但watch可以开异步任务，计算属性则不行 
+    computed和watch的区别：
+      1.computed能完成的，watch都可以，反之则不行
+      2.watch可以进行异步操作
+    所有被vue管理的函数最好写成普通函数-->
+  <div id="root">
+    姓：<input type="text" placeholder="张" v-model="fname"><br>
+    名：<input type="text" placeholder="三" v-model="lname"><br>
+    全名：<span>{{fullName}}</span>
+
+  </div>
+  <script>
+    
+    const vm=new Vue({
+      el:'#root',
+      data () {
+        return {
+          fname:'张',
+          lname:'三',
+          fullName:'张-三'
+        }
+      },
+      watch:{
+        fname(Value){//函数名字必须是属性字段
+            console.log('12312')
+            this.fullName=Value+'-'+this.lname
+        },
+        lname(Value){
+          this.fullName=this.fname+'-'+Value
+        }
+      }
+    
+    })
+  </script>
+</body>
+</html>
