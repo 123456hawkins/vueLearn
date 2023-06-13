@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- Vue中的事件修饰符
+    prevent阻止默认事件（常用）
+    stop 阻止事件冒泡（常用）
+    once 事件只触发一次（常用）
+    capture 使用事件的捕获模式
+    self 只有event.target是当前操作的元素才是触发事件
+    passive事件的默认行为认为立即执行，无需等待事件回调执行完毕 -->
+  <div id="root">
+    <a href="https://www.baidu.com" @click.once="showInfo">点击跳转</a>
+  </div>
+  <script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          
+        }
+      },
+      methods: {
+        showInfo(){
+          alert('不给跳转')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

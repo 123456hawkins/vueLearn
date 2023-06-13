@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- Vue中常用别名：
+        回车enter
+        删除delete
+        退出esc
+        空格space
+        换行tab（必须配合keydown使用）
+        上up
+        下down
+        左left
+        右right
+      其他特殊按钮：
+        ctrl，alt，shift，meta必须按下这些按键和其他随意一个按键再抬起随意按键才能使用-->
+  <div id="root">
+    <h2>welcome</h2>
+    <!-- keyup是按下 keydown是按下抬起  使用keyup.enter也可以实现-->
+    <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo"> //对应CapsLock要写出caps-lock
+  </div>
+  <script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          
+        }
+      },
+      methods: {
+        showInfo(e){
+          // if(e.keyCode != 13) return//回车的keycode是13
+          console.log(e.target.value)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
