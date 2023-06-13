@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- vue自身可以检测对象内部值的改变，但vue提供的watch不支持，使用deep:true可以检测对象内部值的改变 -->
+  <div id="root">
+    <h2>今天天气很{{info}}</h2>
+    <button @click="changWeather">改变天气</button>
+    <hr>
+    <h2>a的值是:{{numbers.a}}</h2>
+    <button @click="numbers.a++">点我加加</button>
+  </div>
+  <script>
+    const vm=new Vue({
+      el:'#root',
+      data () {
+        return {
+          isHot:true,
+          numbers:{
+            a:1,
+            b:1
+          }
+        }
+      },
+      computed: {
+        info(){
+          return this.isHot ? '热':'冷'
+        }
+      },
+      methods: {
+        changWeather(){
+          this.isHot=!this.isHot
+        }
+      },
+      watch:{//对数据进行监测
+          isHot:{
+            handler(newValue,oldValue){//新值，旧值
+              console.log("isHot被修改了",newValue,oldValue)
+            }
+          },
+          //监视numbers中.a
+          // 'numbers.a':{
+          //   handler(nv,ov){
+          //     console.log('.a改变了',nv,ov)
+          //   }
+          // }
+
+          // 监视整个numbers
+          numbers:{
+            deep:true,//深度监视
+            handler(nv,ov){
+              console.log('change',nv,ov)
+            }
+          }
+
+          // 简写
+          // isHot(nv,ov){
+          //   console.log(nv,ov)
+          // }
+      }
+
+    })
+  </script>
+</body>
+</html>

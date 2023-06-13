@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <h2>今天天气很{{info}}</h2>
+    <button @click="changWeather">改变天气</button>
+  </div>
+  <script>
+    const vm=new Vue({
+      el:'#root',
+      data () {
+        return {
+          isHot:true
+        }
+      },
+      computed: {
+        info(){
+          return this.isHot ? '热':'冷'
+        }
+      },
+      methods: {
+        changWeather(){
+          this.isHot=!this.isHot
+        }
+      },
+      watch:{//对数据进行监测
+          isHot:{
+            handler(newValue,oldValue){//新值，旧值
+              console.log("isHot被修改了",newValue,oldValue)
+            }
+          }
+      }
+  // 第二种监视方法
+    // vm.$watch('isHot',{
+    //   isHot:{
+    //         handler(newValue,oldValue){//新值，旧值
+    //           console.log("isHot被修改了",newValue,oldValue)
+    //         }
+    //       }
+    // })  
+    
+    })
+  </script>
+</body>
+</html>

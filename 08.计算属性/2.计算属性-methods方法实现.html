@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    姓：<input type="text" placeholder="张" v-model="fname"><br>
+    名：<input type="text" placeholder="三" v-model="lname"><br>
+    全名：<span>{{fullName()}}</span>
+
+  </div>
+  <script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          fname:'张',
+          lname:'三'
+        }
+      },
+      methods: {
+          fullName(){
+
+            console.log("----use----")
+            return this.fname+this.lname
+          }
+        }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- 计算属性
+        1. 要用的属性不存在，要通过已有的属性计算得来
+        2. 原理：底层接住了Object.defineproperty方法提供getter和setter
+        3. get什么时候调用？1.初次读取fullname 2.所依赖的数据发生变化时
+        4.与method相比，computed有内部缓存机制（可以复用），效率更高，调试方便
+        5.备注：如果计算属性需要修改，必须写set函数去响应修改，且set中要引起计算式依赖的数据发生变化-->
+  <div id="root">
+    姓：<input type="text" placeholder="张" v-model="fname"><br>
+    名：<input type="text" placeholder="三" v-model="lname"><br>
+    全名：<span>{{fullName}}</span>
+
+  </div>
+  <script>
+    
+    const vm=new Vue({
+      el:'#root',
+      data () {
+        return {
+          fname:'张',
+          lname:'三'
+        }
+      },
+      computed: {//计算属性
+        fullName:{
+          // get的作用是当被调用fullname的时候，get就会被调用，且返回值作为fullname的值
+          // get什么时候调用？1.初次读取fullname 2.所依赖的数据发生变化时
+          get(){
+            console.log('get被调用')
+            return this.fname+"-"+this.lname
+          },
+          set(value){//当fullname被修改的时候才被调用，不修改没必要写
+              console.log("change",value)
+              const arr=value.split('-')
+              this.fname=arr[0]
+              this.lname=arr[1]
+
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
