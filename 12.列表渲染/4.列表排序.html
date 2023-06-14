@@ -12,6 +12,9 @@
   <div id="root">
     <label><h2>查找人员</h2></label>
     <input type="text" v-model="keyword" >
+    <button @click="sortType=1">年龄升序</button>
+    <button @click="sortType=2">年龄降序</button>
+    <button @click="sortType=0">原顺序</button>
     <h1>人员列表</h1>
     <ul>
       <!-- 遍历数组 -->
@@ -28,32 +31,27 @@
       data () {
         return {
           keyword:'',
+          sortType:0,//0原顺序，1升，2降
           person:[
-            {id:'001',name:'马冬梅',age:22,sex:'男'},
-            {id:'002',name:'周冬雨',age:22,sex:'男'},
-            {id:'003',name:'周杰伦',age:22,sex:'男'},
-            {id:'004',name:'温兆伦',age:22,sex:'男'}
+            {id:'001',name:'马冬梅',age:2,sex:'男'},
+            {id:'002',name:'周冬雨',age:227,sex:'男'},
+            {id:'003',name:'周杰伦',age:12,sex:'男'},
+            {id:'004',name:'温兆伦',age:52,sex:'男'}
           ],
-          // filPerson:[]
         }
       },
-      // 用watch实现
-      // watch:{
-      //   keyword:{
-      //     immediate:true,//先调用在执行
-      //     handler(val){
-      //     this.filPerson=this.person.filter((p)=>{
-      //       return p.name.indexOf(val)!==-1
-      //     })
-      //   }
-      //   }
-      // },
-      // 用computed实现
       computed: {
         filPerson(){
-          return this.filPerson=this.person.filter((p)=>{
+          const arr = this.person.filter((p)=>{
             return p.name.indexOf(this.keyword)!==-1
         })
+        // 检查一下是否需要排序
+        if(this.sortType){
+          arr.sort((p1,p2)=>{
+            return this.sortType === 1 ? p2.age-p1.age : p1.age-p2.age
+          })
+        }
+        return arr
       }
     }
     })
