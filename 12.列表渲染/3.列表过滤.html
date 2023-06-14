@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- v-for指令 key必须要写 -->
+  <div id="root">
+    <h1>人员列表</h1>
+    <ul>
+      <!-- 遍历数组 -->
+      <!-- key必须要写 -->
+      <li v-for="p in person" :key="p.id">
+        {{p.name}}
+      </li>
+    </ul>
+
+  </div>
+  <script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          person:[
+            {id:'001',name:'马冬梅',age:22,sex:'男'},
+            {id:'002',name:'周冬雨',age:22,sex:'男'},
+            {id:'003',name:'周杰伦',age:22,sex:'男'},
+            {id:'004',name:'温兆伦',age:22,sex:'男'}
+          ]
+        }
+        
+      }
+    })
+  </script>
+</body>
+</html>

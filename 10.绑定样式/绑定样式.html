@@ -16,22 +16,55 @@
     .normal{
       background-color: brown;
     }
+    .basic{
+      border: 20px;
+      width: 300px;
+      height: 500px;
+    }
+    .atguigu1{
+      border-radius: 10%;
+    }
+    .atguigu2{
+      background-color: blueviolet;
+    }
   </style>
 </head>
 <body>
   <div id="root" >
-    <!-- 绑定样式 -->
+    <!-- 绑定class样式 ，字符串写法，适用于样式的类名不确定，需要动态指定 -->
+    <div class="basic" :class="mood" @click="changeMood">{{name}}</div><br><br>
+
+    <!-- 绑定class样式，数组写法，适用于绑定样式的个数不确定，名字也不确定 -->
+    <div class="basic" :class="arr">{{name}}</div>
+
+    <!--绑定class对象写法，适用于要绑定样式的个数确定，名字也确定,但要动态决定用不用 -->
+    <div class="basic" :class=classObj>{{name}}</div>
+
+    <div class="basic" :style="styleObj">{{name}}</div>
   </div>
   <script>
     new Vue({
       el:'#root',
       data () {
         return {
-          
+          name:'hawkins',
+          mood:'normal',
+          arr:['atguigu1','atguigu2'],
+          classObj:{
+            atguigu1:true,
+            atguigu2:true,
+          },
+          styleObj:{
+            fontSize:'40px'
+          }
         }
       },
       methods: {
-        
+      changeMood(){
+        const arr=['happy','sad','normal']
+        const index=Math.floor(Math.random()*3)
+        this.mood=arr[index] 
+       } 
       }
     })
   </script>

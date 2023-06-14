@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  
+  <div id="root">
+    <!-- 使用v-show渲染  v-show比v-if效率要高一点 适用于频率切换的比较高的场景-->
+    <h2 v-show="isShow">hello, myname is{{name}}</h2>
+    <button  @click="transShow">点我切换</button>
+
+
+    <!-- v-if渲染，中间不能打断 -->
+    <div v-if="n===1">1111</div>
+    <div v-else-if="n===2">2222</div>
+    <div v-else>sb</div>
+
+    <!-- 不影响结构 运行后就没有template template不能使用v-show 适用于切换频率比较低的场景-->
+    <template v-if="n===2">
+      <p1>12312</p1>
+      <p2>34234</p2>'
+      <p3>34564</p3>
+    </template>
+  </div>
+  <script>
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          name:'hawkins',
+          isShow:true,
+          n:2
+        }
+      },
+      methods: {
+        transShow(){
+          this.isShow=!this.isShow
+        }
+      }
+    })
+  </script>
+</body>
+</html>
