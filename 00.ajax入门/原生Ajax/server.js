@@ -28,6 +28,17 @@ app.get('/ie',(request,response)=>{
   response.send('hello ajax ie')
 });
 
+app.get('/jquery-get',(request,response)=>{
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-Control-Allow-Origin','*')
+  // 设置响应体
+  // response.send('hello ajax jquery GET')
+  const data={name:'hawkins',number:'wafwef'}
+  response.send(data)
+
+
+});
+
 
 // 延时响应
 app.get('/delay',(request,response)=>{
@@ -55,6 +66,9 @@ app.all('/json-server',(request,response)=>{
     // 设置响应体
     response.send(str)
 });
+
+
+
 
 // 4.监听端口启动服务
 app.listen(8000,()=>{

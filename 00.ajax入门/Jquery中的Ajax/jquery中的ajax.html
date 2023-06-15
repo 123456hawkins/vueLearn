@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <button>GET</button>
+  <button>POST</button>
+  <button>通用方法</button>
+  <script>
+    $('button').eq(0).click(function(){
+      $.get('http://127.0.0.1:8000/jquery-get',{a:100},function(data){
+        console.log(data)
+      },'json')//有四个参数,最后一个代表响应体是json类型
+    })
+    $('button').eq(1).click(function(){
+      $.post('')
+    })
+    // 通用方法
+    $('button').eq(2).click(function(){
+      $.ajax({
+        url:'http://127.0.0.1:8000/delay',
+        data:{a:100,b:900},
+        type:'GET',
+        dataType:'json',
+        success:function(data){
+          console.log(data)
+        },
+        timeout:2000,
+        // 超时处理
+        error:function(){
+          alert('出错了')
+        }
+      })
+    })
+  </script>.
+</body>
+</html>
