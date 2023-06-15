@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     #result{
+    width: 200px;
+    height: 200px;
+    border:solid 2px black
+  }
+  </style>
+</head>
+<body>
+  <div id="result"></div>
+  <script>
+    const res=document.getElementById('result')
+    res.addEventListener("mouseover",function(){
+      // 1.创建对象
+      const xhr=new XMLHttpRequest();
+      // 2.初始化请求方法合url
+      xhr.open('POST','http://127.0.0.1:8000/json-server');
+      // 设置请求头
+      xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+      xhr.send('hello')
+      // 设置响应体类型
+      xhr.responseType="json"
+      // 4.事件绑定 处理服务端返回的结果
+      // on when 当。。。的时候
+      // readystate是xhr对象中的属性，表示状态0 1 2 3 4
+      // change 改变
+      xhr.onreadystatechange=function(){
+        // 判断服务器返回了所有的结果
+        if(xhr.readyState===4){
+          // 2xx代表成功
+          if(xhr.status>=200&&xhr.status<300){
+            // 处理结果 行 头 空行 体
+            // console.log(xhr.status)//状态码
+            // console.log(xhr.statusText)//状态字符串
+            // console.log(xhr.getAllResponseHeaders)//所有响应头
+            // console.log(xhr.response)//响应体
+            // 设置result的文本
+            // let data =JSON.parse(xhr.response)
+            document.getElementById('result').innerHTML=xhr.response.name
+
+
+          }else{
+              
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
