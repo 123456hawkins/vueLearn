@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios 发送 AJAX请求</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+<body>
+  <button>GET</button>
+  <button>POST</button>
+  <button>通用方法</button>
+</body>
+<script>
+  const btns=document.querySelectorAll('button')
+  axios.defaults.baseURL='http://127.0.0.1:8000'
+  btns[0].onclick=function(){
+    axios.get('/axios-get',{
+       // url参数
+    params:{
+      id:100,
+      vip:7
+    },
+    // // 请求标头
+    // headers:{
+    //   name:'hawkisn',
+    //   age:20
+    // }
+    });
+   
+  }
+  // 常规发送请求方式
+  btns[2].onclick=function(){
+    axios({
+      url:'axios-get',
+      params:{
+        a:100,
+
+        b:100
+      },
+      Headers:{
+        a:100,
+        b:100
+      }
+    }).then(response=>{
+      alert(response.statusText)
+    })
+  }
+</script>
+</html>
