@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>改变html内容</title>
+</head>
+<body>
+  <div id="test" style="font-size: 20px">
+    hhhhhhhhh
+  </div>
+  <button id="button1" onclick="change()">按我试试</button>
+  <div id="test2">
+      wafawefawf
+  </div>
+  <button onclick="changeColor()">
+      按我试试
+  </button>
+
+<script>
+    const button=document.getElementById("button1")
+    const div1=document.getElementById("test")
+    button.addEventListener("click",function () {
+        if (div1.textContent==="hhhhhhhhh"){
+            div1.textContent="nnnnnnnn"
+        }else {
+            div1.textContent="hhhhhhhhh"
+        }
+    })
+    function changeColor(){
+        document.getElementById("test2").style.color="red"
+    }
+  // function change(){
+  //   document.getElementById("test").innerHTML="nnnnnnnnnnnn"//修改值
+  // }
+
+</script>
+
+</body>
+</html>

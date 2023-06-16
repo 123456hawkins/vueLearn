@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+</head>
+<body>
+<div id="demo"></div>
+<h1>XMLHttpRequest 对象</h1>
+<button type="button" onclick="loadDoc()">修改内容</button>
+<script>
+//   创建 XMLHttpRequest 对象，并将其赋值给变量 xhttp。
+// 设置 xhttp 对象的 onreadystatechange 属性，当 readyState 改变时会触发该函数。
+// 使用 xhttp.open() 方法打开请求，参数包括请求类型（"GET"）、URL（"ajaxInfo.txt"）和异步标志（true）。
+// 使用 xhttp.send() 方法发送请求。
+// 等待响应返回：当 readyState 变为 4 且状态码为 200 时，表示请求成功。
+// 在回调函数中更新 HTML 元素的内容，即将响应文本作为 innerHTML 赋值给 ID 为 "demo" 的元素。
+  function loadDoc(){
+    var xhttp=new XMLHttpRequest()
+    xhttp.onreadystatechange=function (){
+      if(this.readyState==4&&this.status==200){
+        document.getElementById("demo").innerHTML=this.responseText
+      }
+    }
+    xhttp.open("GET","ajaxInfo.txt",true)
+    xhttp.send()
+  }
+</script>
+</body>
+</html>

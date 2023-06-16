@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind</title>
+</head>
+<body>
+
+<script>
+  var p1={
+    fullname:function (){
+      return this.fname+" "+this.lname
+    }
+  }
+  var p2={
+    fname:"shit0",
+    lname:"fuck",
+  }
+  var x =p1.fullname.call(p2)//引用p2，调用p2的方法,调用一个函数，并将一个指定的this值和单独给出的参数传递到该函数中。
+  alert(x)
+</script>
+
+</body>
+</html>

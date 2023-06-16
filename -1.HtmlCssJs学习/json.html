@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>json</title>
+</head>
+<body>
+
+<p id="demo"></p>
+<script>
+  var text = '{ "employees" : [' +
+          '{ "firstName":"Bill" , "lastName":"Gates" },' +
+          '{ "firstName":"Steve" , "lastName":"Jobs" },' +
+          '{ "firstName":"Alan" , "lastName":"Turing" } ]}';
+  var obj=JSON.parse(text)//json转为对象
+  document.getElementById("demo").innerHTML=obj.employees[1].firstName
+
+</script>
+
+</body>
+</html>

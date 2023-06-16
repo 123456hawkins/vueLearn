@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jslearn2</title>
+</head>
+<body>
+<div id="qwe">awfawefaw</div>
+<!--<button onclick="changcloor()"></button>-->
+
+<form>
+  <input id="demo" type="text">
+  <button onclick="jiance();return false;">请输入</button>
+</form>
+
+<div id="output1" style="font-size: 15px;" ></div>
+<script>
+  function jiance(){
+    var mes,x
+    x=document.getElementById("demo")//返回的是一个对象，不是一个值
+    mes=document.getElementById("output1")
+    mes.innerHTML=""
+    try{
+      if (x.value==="") throw "是空的";
+      if(x.value>10) throw "不满足";
+    }catch (err){
+      mes.innerHTML="报错："+err
+    }
+  }
+//   function changcloor(){
+//     document.getElementById("qwe").innerHTML="enhgjftyj"
+//   }
+//   // 默认替换首个匹配
+//   var str= "faw faw faw efa"
+//   var str2 = str.replace("faw","www")
+//   var bstr="QWERQWR"
+//
+//   //
+//   var lstr=bstr.toLowerCase()
+//   // alert(lstr)
+//
+// //   trim删除留白
+//   var str="      hello    "
+// //   math
+//   var ranNum= Math.floor(Math.random()*100)//返回1-100的随机整数，random返回随机小数，范围在0-1 floor返回小于或者等于指定数字的最大整数
+//   // alert(ranNum)
+//
+// //   比较运算符 ==比较值 ===比较值和类型
+// //   三元运算符
+//   var age=19
+//   var p=(age<18)?"年轻":"成熟"
+//   // alert(p)
+//   // var sum=0
+//   const numbers=[1,2,3,6,4,87,46]
+//   // 每个元素调用一次函数
+//   numbers.forEach(cacu)//返回三个参数
+//
+//   function cacu(value,index,array){
+//     sum=sum+value
+//   }
+//   // alert(sum)
+//   var i=0
+// //   while循环
+//   while (i<10){
+//     sum=sum+i
+//     i++
+//   }
+//   // alert(sum)
+
+
+</script>
+</body>
+</html>

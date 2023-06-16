@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getGps</title>
+</head>
+<body>
+<h1>
+  获取你的地理位置
+</h1>
+<p id="demo"></p>
+<button onclick="getLocation()" >点击</button>
+<script>
+  const x=document.getElementById("demo")
+function getLocation(){
+  try {
+    navigator.geolocation.getCurrentPosition(showposition);
+  }catch (err){
+    x.innerHTML=err
+  }
+}
+function showposition(position){
+    x.innerHTML="lattitude:"+position.coords.latitude+"<br>longitude:"+position.coords.longitude
+}
+</script>
+</body>
+</html>

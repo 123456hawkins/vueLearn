@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JsLearning</title>
+</head>
+<body>
+<button onclick="dispaly()">按我试试</button>
+<div id="shit"></div>
+
+<script>
+<!--  js对大小写敏感-->
+  var x,y,z;
+  x=22;
+  y=11;
+  z=x+y
+  // 多个变量同时赋值
+  var pname="hawkins",carname="porsche",price=15000
+    function dispaly(){
+    document.getElementById("shit").innerHTML="wfeawefaw"
+  }
+
+//   var声明的变量是全局作用域 let的作用域是块级作用域(只用在{}中才会有效果)
+
+
+  let i=2
+  alert(i)
+// const也是块级作用域，定义了对值的常量引用
+const pi=3.1415926
+// pi=1//不能修改，会报错
+
+//可以更改对象属性,但是无法为变量重新赋值
+const car={type:"bmw",model:"m3",color:"white"}
+
+// 可以更改常量数组元素，但也无法重新赋值
+// 您可以创建常量数组：
+const cars = ["Audi", "BMW", "porsche"];
+
+// 您可以更改元素：
+cars[0] = "Honda";
+
+// 您可以添加元素：
+cars.push("Volvo");
+
+var x = 911 + 7 + "Porsche";
+var y = "Porsche" + 911 + 7;
+alert(x)
+alert(y)
+
+function test(p1,p2){
+    return p1*p2
+}
+alert(test(1,2))
+
+// 对象
+var person={
+    fname:"stephen",
+    lname:"hawkins",
+    phone:"18976758681",
+    aname:function(){
+        return this.fname+" "+this.lname
+    }
+}
+alert(person.aname())//调用函数要加（）
+</script>
+</body>
+</html>

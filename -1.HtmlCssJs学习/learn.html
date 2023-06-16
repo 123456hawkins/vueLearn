@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    视口，实现响应式布局-->
+    <meta name="viewport" content="width=device-width,intial-scale=1.0">
+<!--    外部样式表-->
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+<body>
+  <p>awefasf</p>
+  <p1>cafwefdf</p1>
+  <p2>wafwefawfw<q>esfesef</q><abbdr>awfwaf</abbdr></p2>
+<!--  alt是替换文本属性，当缺失图片时会显示-->
+  <a href="https://www.baidu.com""><img alt="shuaige" src="hawkins.jpg" height="100" align="left"></a>
+<!--  定义dfn,当鼠标划到时会显示详细信息-->
+  <p><dfn title="大帅逼">黄培</dfn></p>
+
+<!--表格信息-->
+<!--  tr是行 td是单元格 border是否带边框  &nbsp是占位符 th表头-->
+  <table align="center" border="1" bgcolor="aqua">
+      <tr>
+          <th>Heading</th>
+          <th>another head</th>
+      </tr>
+      <tr >
+        <td>row1,cell1</td>
+        <td>row2,cell2</td>
+      </tr>
+      <tr>
+          <td>&nbsp</td>
+          <td>row 2, cell 2</td>
+      </tr>
+ </table>
+
+<!--  无序列表-->
+  <ul>
+      <li>coffe</li>
+      <ul>
+          <li>
+              糖
+          </li>
+          <li>
+              牛奶
+          </li>
+      </ul>
+      <li>tea</li>
+  </ul>
+
+<!--  有序列表-->
+  <ol>
+      <li>1123</li>
+      <li>12312</li>
+  </ol>
+
+
+<!--  该网页的作者联系·信息-->
+  <address>
+      written by hawkins<br>
+      2398430708<br>
+      wfawfawef<br>
+      wef234234<br>
+  </address>
+<!--  div是块级元素-->
+  <div class="shit" style="font-size: 100px">wefawfaw</div>
+<!--  span是行级元素-->
+  <span class="shit" >1234688521354</span>
+<!-- id用#选择 id是一个页面中的唯一 class不唯一 id对大小写敏感-->
+  <div id="shit2">12312314234</div>
+  <button onclick="displayFont()">改变文本</button>
+  <button onclick="displauResult()">点我试试</button>
+<!--  <s>删除线 <u>下划线-->
+  <p>
+      <div style="color: bisque;font-size: 89px" class="111" ><u>eafwfawf</u></div>
+  </p>
+<!--  链接写法-->
+  <a href="https://www.baidu.com" >这是一个链接</a>
+    <br>
+<!--iframe-->
+<iframe src="testIframe.html" width="200" height="200" frameborder="1"></iframe>
+
+<!--表单-->
+<form action="">
+    <input type="text">
+    <br>
+    <input type="password">
+</form>
+
+<!--下拉列表-->
+<select>
+    <option value="1111">sss</option>
+    <option value="1111">sss</option>
+    <option value="1111">sss</option>
+    <option value="1111">sss</option>
+</select>
+
+<!--  带有下拉列表的输入框-->
+  <form action="action_page.php">
+      <input list="browsers">
+      <datalist id="browsers">
+          <option value="Internet Explorer">
+          <option value="Firefox">
+          <option value="Chrome">
+          <option value="Opera">
+          <option value="Safari">
+      </datalist>
+  </form>
+
+
+</body>
+<script>
+    function displauResult(){
+        alert("shit")
+    }
+    function displayFont(){
+        document.getElementById("shit2").innerHTML="囸安慰发我"
+    }
+</script>
+<noscript>抱歉，你的浏览器不支持javascript</noscript>
+</html>

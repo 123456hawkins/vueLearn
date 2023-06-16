@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hoisting</title>
+</head>
+<body>
+  <button onclick="this.style.display='none'">点击让我消失</button>
+<script>
+<!--hoisting 是javaScript 将所有声明提升到当前作用域顶部的默认行为-->
+// let和const关键字不会被hoisting
+
+// hoisting的例子
+x = 5; // 把 5 赋值给 x
+elem = document.getElementById("demo"); // 查找元素
+elem.innerHTML = x;                     // 在元素中显示 x
+var x; // 声明 x
+
+</script>
+
+</body>
+</html>

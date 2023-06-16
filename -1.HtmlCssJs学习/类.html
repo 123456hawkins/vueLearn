@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类</title>
+</head>
+<body>
+<script>
+<!--  类要求始终添加construor方法用于构造属性-->
+  class Person{
+  constructor(name,year) {
+    this.name=name
+    this.year=year
+  }
+  getName(){
+    return this.name
+  }
+  getYear(){
+    return this.year
+  }
+  }
+  let p1=new Person("hawkins","2001")
+  alert(p1.getName()+p1.getYear())
+
+</script>
+</body>
+</html>
