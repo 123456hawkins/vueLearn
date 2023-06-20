@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- 组件是可复用的vue实例,且带有一个名字 -->
+  <div id="root"></div>
+  <div id="test1">
+    <!-- 组件的复用 -->
+    <root-counter></root-counter>
+    <root-counter></root-counter>
+    <root-counter></root-counter>
+  </div>
+  <script>
+    // 全局注册
+    Vue.component('root-counter',{
+      // 组件的data必须是一段函数
+      data () {
+        return {
+          count:0
+        }
+      },
+      template:'<button v-on:click="count++">你点了我{{count}}次</button>'
+    })
+    new Vue({el:'#test1'})
+  </script>
+</body>
+</html>

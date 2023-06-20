@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- 生命周期函数 -->
+  <!-- 
+  1.beforeCreate（创建前）：该钩子函数在实例被创建之前调用，在这个阶段，数据观测和初始化还未开始。
+    此时无法访问到data、computed、methods等属性和方法，因为它们还没有被初始化。
+
+  2.created（创建后）：该钩子函数在实例被创建完成后调用，在这个阶段，模板已经编译完成，但是挂载还没有开始。
+    可以在这个阶段访问到data、computed、methods等属性和方法，但是无法访问到DOM元素。
+
+  3.beforeMount（挂载前）：该钩子函数在实例挂载之前调用，在这个阶段，虚拟DOM已经渲染完毕，但是尚未生成真实的DOM节点。
+  在这个阶段可以进行一些准备工作，比如修改数据、访问属性等。
+
+  4.(重要)mounted（挂载后）：该钩子函数在实例挂载完成后调用，在这个阶段，实例已经生成了真实的DOM节点，并且已经插入到页面中，
+  可以对DOM进行操作，比如添加事件监听器、获取DOM元素尺寸等。
+
+  5.beforeUpdate（更新前）：该钩子函数在数据更新之前调用，在这个阶段，虚拟DOM已经重新渲染并准备完毕，但是尚未应用新数据进行更新。
+  可以在这个阶段进行一些准备工作，比如获取更新前的DOM状态、保存一些临时数据等。
+
+  6.updated（更新后）：该钩子函数在数据更新完成后调用，在这个阶段，组件已经重新渲染并更新完毕，可以对DOM进行操作，比如获取更新后的DOM状态、执行动画效果等。
+
+  7.(重要)beforeDestroy（销毁前）：该钩子函数在实例销毁之前调用，在这个阶段，实例还没有被销毁，可以进行一些清理工作，比如取消事件监听器、清除定时器等。可以访问到数据，但是对数据修改不会再更新
+
+  8.destroyed（销毁后）：该钩子函数在实例销毁后调用，在这个阶段，实例所有的绑定和指令都已经解除，并且可以进行垃圾回收。销毁后自定义事件会失效，但是原生的dom事件还是有效
+  在这个阶段可以执行一些额外的清理工作，比如释放内存、断开连接等。 -->
+  <div id="root">
+    <h1>此时n的值{{n}}</h1>
+    <button @click="add">点我加加</button>
+    <button @click="destroy">点我销毁</button>
+  </div>
+  <script>
+    Vue.config.productionTip=false
+    const vm=new Vue({
+      el:'#root',
+      data () {
+        return {
+          n:0
+        }
+      },
+      methods: {
+        add(){
+          this.n++
+        },
+        destroy(){
+          this.$destroy()
+        }
+      },
+      beforeCreate(){
+        console.log('beforeCreate');
+      },
+      created(){
+        console.log('created');
+      },
+      beforeMount(){
+        console.log('beforeMount');
+      },
+      mounted(){
+        console.log('mounted')
+      },
+      beforeUpdate(){
+        console.log('beforeUpdate');
+      },
+      updated(){
+        console.log('updated')
+      },
+      beforeDestroy(){
+        console.log('beforeDestroy')
+      },
+      destroyed(){
+        console.log('destroyed');
+      }
+
+
+    })
+  </script>
+</body>
+</html>

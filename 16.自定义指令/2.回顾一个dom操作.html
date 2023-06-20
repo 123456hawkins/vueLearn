@@ -17,6 +17,22 @@
     <input type="text" v-fbind:value="n">
   </div>
   <script>
+    // 注册全局自定义指令
+    // Vue.directives('fbind2',{
+    //       // 指令与元素成功绑定时
+    //       bind(element,binding){
+    //         element.value=binding.value
+    //       },
+    //       // 指令所在元素插入页面时
+    //       inserted(element,binding){
+    //         element.focus()
+    //       },
+    //       // 指令所在的模板重新解析时
+    //       update(element,binding){
+    //         element.value=binding.value
+    //       }
+
+    // })
     new Vue({
       el:'#root',
       data () {
@@ -26,6 +42,7 @@
       },
       // 自定义函数
       // 局部指令
+      
       directives:{
         // 如果方法名出现-,则应采用这种写法:'v-big-number':funciton(){}
         big(element,binding){
@@ -34,17 +51,33 @@
             element.innerText=binding.value*10
         },
         fbind:{
+          // 以下三个为钩子函数
           // 指令与元素成功绑定时
+          // 钩子函数的参数有:
+          //1.el：指令所绑定的元素，可以用来直接操作 DOM。
+          //2.binding:一个对象,包含以下property
+          //   name：指令名，不包括 v- 前缀。
+          //   value：指令的绑定值，例如：v-my-directive="1 + 1" 中，绑定值为 2。
+          //   oldValue：指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+          //   expression：字符串形式的指令表达式。例如 v-my-directive="1 + 1" 中，表达式为 "1 + 1"。
+          //   arg：传给指令的参数，可选。例如 v-my-directive:foo 中，参数为 "foo"。
+          //   modifiers：一个包含修饰符的对象。例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }。
+          //3.vnode：Vue 编译生成的虚拟节点。移步 VNode API 来了解更多详情。
+          //4.oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+
           bind(element,binding){
             element.value=binding.value
+            console.log('1')
           },
           // 指令所在元素插入页面时
           inserted(element,binding){
             element.focus()
+            console.log('2')
           },
           // 指令所在的模板重新解析时
           update(element,binding){
             element.value=binding.value
+            console.log('3')
           }
 
         }
