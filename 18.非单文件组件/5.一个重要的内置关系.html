@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- 一个重要的内置关系 
+    1.一个重要的内置关系：VueComponent.prototype.__proto__===Vue.prototype
+    2.为什么要有这个关系，让组件实例对象可以访问到Vue原型上的属性和方法
+  -->
+  <div id="root"></div>
+  <script>
+    Vue.config.productionTip=false
+    // 定义一个构造函数
+    function Demo(){
+      this.a=1
+      this.b=1
+    }
+    // 创建一个demo的实例化对象
+    const d =new Demo()
+
+    console.log(Demo.prototype);//显示原型属性
+    console.log(d.__proto__);//隐式原型属性
+    console.log(d.__proto__===Demo.prototype);//判断类型
+    Demo.prototype.x=99
+
+    new Vue({
+      el:'#root',
+      data () {
+        return {
+          
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
