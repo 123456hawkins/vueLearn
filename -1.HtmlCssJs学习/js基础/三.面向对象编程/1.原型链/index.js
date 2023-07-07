@@ -78,3 +78,16 @@ function Test1(){
 }
 test.constructor=Test1//更改构造函数
 console.log(test.constructor);//
+
+///////////////////////////////////////////////////
+Person.prototype.sayHello = function() {
+  console.log('Hello, ' + this.name);
+};
+
+var person1 = new Person('Alice');
+person1.sayHello(); // 输出: Hello, Alice
+/////////////////////////////////////////////
+// 在上面的示例中，Person.prototype 是一个对象，它包含了 sayHello 方法。
+// person1 是通过 Person 构造函数创建的一个实例对象，它的 __proto__ 属性指向了
+//  Person.prototype。Person.prototype 的 __proto__ 属性指向了 Object.prototype，
+//  而 Object.prototype 的 __proto__ 属性为 null，形成了原型链。
