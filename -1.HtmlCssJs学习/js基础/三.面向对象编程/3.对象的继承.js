@@ -113,3 +113,44 @@ Sub.prototype.method = '....'
 
 // 上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，
 // 而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。
+// shape构造函数
+function Shape(){
+  this.x=0;
+  this.y=0
+}
+
+Shape.prototype.move=function(x,y){
+  this.x+=x
+  this.y+=y
+  console.log('shape moved!');
+}
+
+// 子类继承父类
+function Rectangle(){
+  Shape.call(this)
+}
+// 继承父类方法
+Rectangle.prototype=Object.create(Shape.prototype)
+Rectangle.prototype.constructor=Rectangle
+
+/**
+ * 多重继承
+ */
+function M1(){
+  this.hello='hello'
+}
+function M2(){
+  this.hello='world'
+}
+function M3(){
+  M1.call(this)
+  M2.call(this)
+}
+// 继承M1
+M3.prototype=Object.create(M1.prototype)
+// 继承链上加入M2
+Object.assign(M.prototype,M2.prototype)
+
+// 指定构造函数
+M.prototype.constructor=M
+
