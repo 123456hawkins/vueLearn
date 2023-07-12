@@ -106,3 +106,10 @@ function Sub(value){
   super.call(this)//调用父类的构造函数
   this.prop=value
 }
+// 让子类原型指向父类原型，这样子类就可以继承父类原型
+Sub.prototype=Object.create(Super.prototype);
+Sub.prototype.constructor=Sub
+Sub.prototype.method = '....'
+
+// 上面代码中，Sub.prototype是子类的原型，要将它赋值为Object.create(Super.prototype)，
+// 而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉。
