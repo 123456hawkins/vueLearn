@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="button" id="myButton" value="click"></button>
+  <hr>
+  <input type="text" id="input-box">
+  
+</body>
+<script>
+  var input=document.getElementById('myButton')
+  input.onclick=function A(){
+    setTimeout(function B(){
+      input.value+=' input'
+    },0)
+  }
+  document.body.onclick=function C(){
+    input.value+=' body'
+  }
+  // 上面代码在点击按钮后，先触发回调函数A，然后触发函数C。函数A中，setTimeout将函数B推迟到下一轮事件循环执行，这样就起到了，先触发父元素的回调函数C的目的了。
+
+
+  // 用户自定义的回调函数，通常在浏览器的默认动作之前触发。比如，用户在输入框输入文本，keypress事件会在浏览器接收文本之前触发
+  // 比如，用户在输入框输入文本，keypress事件会在浏览器接收文本之前触发。因此，下面的回调函数是达不到目的的。
+  // document.getElementById('input-box').onkeypress = function (event) {
+  // this.value = this.value.toUpperCase();
+  // }
+
+  document.getElementById('input-box').onkeypress = function() {
+  var self = this;
+  setTimeout(function() {
+    self.value = self.value.toUpperCase();
+  }, 0);
+  // setTimeout(f, 0)实际上意味着，将任务放到浏览器最早可得的空闲时段执行，
+
+
+  
+}
+</script>
+</html>
