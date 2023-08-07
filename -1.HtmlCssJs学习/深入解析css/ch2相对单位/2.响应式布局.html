@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="pageContainer">
+      <!-- 使用@media构造响应式面板 -->
+      <div class="topBox">
+        <div class="panel leftPanel">
+          <h2>Single-origin</h2>
+          <div class="panel-body">
+            We have built partnerships with small farms around the world to
+            hand-select beans at the peak of season. We then carefully roast in
+            <a href="/batch-size">small batches</a> to maximize their potential.
+          </div>
+        </div>
+        <div class="panel rightPanel">
+          <h2>Single-origin</h2>
+          <div class="panel-body">
+            We have built partnerships with small farms around the world to
+            hand-select beans at the peak of season. We then carefully roast in
+            <a href="/batch-size">small batches</a> to maximize their potential.
+          </div>
+        </div>
+      </div>
+      <div class="footerBox">
+        <div class="panel downPanel">
+          <h2>Single-origin</h2>
+          <div class="panel-body">
+            We have built partnerships with small farms around the world to
+            hand-select beans at the peak of season. We then carefully roast in
+            <a href="/batch-size">small batches</a> to maximize their potential.
+          </div>
+        </div>
+      </div>
+      <div>
+        放大的panel
+        <div class="panel bigPanel">
+          <h2>Single-origin</h2>
+          <div class="panel-body">
+            We have built partnerships with small farms around the world to
+            hand-select beans at the peak of season. We then carefully roast in
+            <a href="/batch-size">small batches</a> to maximize their potential.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  .pageContainer {
+    padding: 0.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .topBox {
+    display: flex;
+    flex-direction: row;
+    border: 0.5rem;
+  }
+  .leftPanel {
+    width: 40%;
+    margin: 0.5rem;
+  }
+  .rightPanel {
+    width: 60%;
+    margin: 0.5em;
+  }
+  .panel {
+    font-size: 1rem;
+    padding: 1em;
+    border-radius: 0.5em;
+    border: 1px solid #999;
+  }
+  .downPanel {
+    font-size: 0.8em;
+    margin: 0.5em;
+  }
+  /* 直接后代选择器 */
+  .panel > h2 {
+    margin-top: 0;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  /* 根节点要用em,子节点字体用rem */
+  :root {
+    font-size: 0.75em;
+  }
+
+  /* 使用@media实现响应式布局 */
+  /* 作用到800px及以上的屏幕,覆盖之前的值 */
+  @media (min-width: 800px) {
+    :root {
+      font-size: 0.875em;
+    }
+  }
+  /* 作用到1200px以上的屏幕,覆盖之前的值 */
+  @media (min-width: 1200px) {
+    :root {
+      font-size: 1em;
+    }
+  }
+  .bigPanel {
+    font-size: 1.5em;
+  }
+</style>

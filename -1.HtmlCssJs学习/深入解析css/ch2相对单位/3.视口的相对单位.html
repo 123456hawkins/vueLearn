@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 前面介绍的em和rem都是基于font-size,但是目前还有另外一种相对单位,
+        相对于浏览器视口定义长度的视口的相对单位 
+      
+      视口——浏览器窗口里网页可见部分的边框区域。它不包括浏览器的地址栏、工具
+      栏、状态栏。-->
+    <!--  vh：视口高度的 1/100。
+ vw：视口宽度的 1/100。
+ vmin：视口宽、高中较小的一方的 1/100（IE9 中叫 vm，而不是 vmin）。
+ vmax：视口宽、高中较大的一方的 1/100（本书写作时IE和Edge均不支持vmax）①。 -->
+    <div class="square">违法违规手段和深入农村色色让他还是让他</div>
+  </body>
+</html>
+<style>
+  :root {
+    /* 保证最小值是0.5em */
+    /* 我们不用媒体查询就实现了大部分的响应式策略。省掉三四个硬编码的断点，网页上的内容
+也能根据视口流畅地缩放 */
+    font-size: calc(0.5em + 1 vw);
+  }
+  .square {
+    width: 50vw;
+    height: 50vh;
+    background-color: blue;
+  }
+</style>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="panel">
+      <h2>Single-origin</h2>
+      <div class="body">
+        We have built partnerships with small farms around the world to
+        hand-select beans at the peak of season. We then careful roast in small
+        batches to maximize their potential.
+      </div>
+    </div>
+    <!--  -->
+    <aside class="dark">
+      <div class="panel">
+        <h2>Single-origin</h2>
+        <div class="body">
+          We have built partnerships with small farms around the world to
+          hand-select beans at the peak of season. We then careful roast in
+          small batches to maximize their potential.
+        </div>
+      </div>
+    </aside>
+    <script type="text/javascript">
+      // 使用javascript改变自定义属性
+      var rootElement = document.documentElement
+      // 获取一个元素的styles对象
+      var styles = getComputedStyle(rootElement)
+      // 获取自定义css属性的值
+      var mainColor = styles.getPropertyValue('--main-bg')
+      console.log('自定义bg为', String(mainColor).trim())
+
+      // 设置bg颜色
+      var rootElement = document.documentElement
+      rootElement.style.setProperty('--main-bg', '#cdf')
+    </script>
+  </body>
+</html>
+<style>
+  :root {
+    --main-bg: #fff;
+    --main-color: #000;
+  }
+
+  .panel {
+    font-size: 1rem;
+    padding: 1em;
+    border: 1px solid #999;
+    border-radius: 0.5em;
+    background-color: var(--main-bg);
+    color: var(--main-color);
+  }
+
+  .panel > h2 {
+    margin-top: 0;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  /* 总共定义了自定义属性两次：第一次在根元素上（--main-color 为黑色），第
+二次在深色容器上（--main-color 为白色）。自定义属性就像作用域变量一样，因为它的值会
+被后代元素继承。在深色容器中，--main-color 为白色，在页面其他地方，则是黑色。 */
+  .dark {
+    margin-top: 2em;
+    padding: 1em;
+    background-color: #999;
+    --main-bg: #333;
+    --main-color: #fff;
+  }
+  /* 
+   拥抱相对单位，让网页的结构决定样式的含义。
+ 建议用 rem 设置字号，但是有选择地用 em 实现网页组件的简单缩放。
+ 不用媒体查询也能让整个网页响应式缩放。
+ 使用无单位的值设置行高。
+ 请开始熟悉 CSS 的一个新特性：自定义属性。 */
+</style>

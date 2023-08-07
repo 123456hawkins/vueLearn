@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="padded">awewefawefawefhtyyjfyjgsrawefawefhdrthdrtvbncjty</div>
+    <div class="box small">small</div>
+    <div class="box large">large</div>
+    <div class="box inheritBox">awefawefa</div>
+
+    <div>
+      不使用rem的结果
+      <ul class="noRem">
+        <li>
+          Top level
+          <ul>
+            <li>
+              Second level
+              <ul>
+                <li>
+                  Third level
+                  <ul>
+                    <li>
+                      Fourth level
+                      <ul>
+                        <li>Fifth level</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div style="font-size: 1rem">
+      使用rem的结果
+      <ul class="yesRem">
+        <li>
+          Top level
+          <ul>
+            <li>
+              Second level
+              <ul>
+                <li>
+                  Third level
+                  <ul>
+                    <li>
+                      Fourth level
+                      <ul>
+                        <li>Fifth level</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Single-origin</h2>
+      <div class="panel-body">
+        We have built partnerships with small farms around the world to
+        hand-select beans at the peak of season. We then carefully roast in
+        <a href="/batch-size">small batches</a> to maximize their potential.
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  /* 浏览器默认的字号为16px */
+  /* px为绝对单位,em和rem为相对单位,1em规定为当前div中的字号大小 */
+  .padded {
+    font-size: 16px;
+    /* 1em=16px */
+    padding: 2em;
+  }
+  .box {
+    text-align: center;
+    width: 3em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: lightgray;
+  }
+  .small {
+    font-size: 10px;
+  }
+  .large {
+    font-size: 20px;
+  }
+  .inheritBox {
+    /* 继承父级font-size的大小为1em再乘以1.2倍 */
+    font-size: 1.2em;
+    /* 使用em当出现文字嵌套时会导致文字越变越小,很危险,所以推荐使用rem */
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  ul.noRem {
+    font-size: 0.4em;
+    background-color: green;
+  }
+  /* rem是root em的缩写 */
+  /* 根节点有一个伪类选择器:root可以用来选中自己 */
+  /* :root相当于html但是是一个类选择器,优先级比html要高 */
+  :root {
+    /* 如果想要设置默认字号为14px,则用14/16=0.875 */
+    font-size: 0.875em;
+  }
+  ul.yesRem {
+    background-color: yellow;
+    font-size: 0.8rem;
+  }
+  /* 用 rem 设置字号，用 px 设置边框，用 em 设置其他大部分属性 */
+  .panel{
+    padding: 1em;
+    border-radius:0.5em ;
+    border:1px solid #999
+  }
+  /* 直接后代选择器 */
+  .panel > h2{
+    margin-top: 0;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+</style>
