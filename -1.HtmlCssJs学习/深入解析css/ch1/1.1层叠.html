@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+  <link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <!-- 层叠规定了如何解决冲突 -->
+  <!-- 当声明冲突时，层叠会依据三种条件解决冲突。
+(1) 样式表的来源：样式是从哪里来的，包括你的样式和浏览器默认样式等。
+(2) 选择器优先级：哪些选择器比另一些选择器更重要。
+(3) 源码顺序：样式在样式表里的声明顺序 -->
+
+  <!-- 浏览器应用了用户代理样式后才会应用你的样式表，即作者样式表。你指定的声明会覆盖用
+户代理样式表里的样式。 -->
+  <header class="page-header">
+    <h1 id="page-title" class="title">Wombat Coffee Roasters</h1>
+    <nav>
+      <ul id="main-nav" class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/coffees">Coffees</a></li>
+        <li><a href="/brewers">Brewers</a></li>
+        <li><a href="/specials" class="featured">Specials</a></li>
+      </ul>
+    </nav>
+  </header>
+  <header class="page-header">
+    <h1 id="page-title" class="title">Wombat Coffee Roasters</h1>
+    <nav>
+      <ul id="main-nav1" class="nav1">
+        <li><a href="/">Home</a></li>
+        <li><a href="/coffees">Coffees</a></li>
+        <li><a href="/brewers">Brewers</a></li>
+        <li><a href="/specials" class="featured1">Specials</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!--  标记了!important 的声明会被当作更高优先级的来源，因此总体的优先级按照由高到低
+    排列如下所示：
+    (1) 作者的!important
+    (2) 作者
+    (3) 用户代理-->
+
+  <!-- 行内样式 -->
+  <!-- 行内样式优先级很高，如果想覆盖，要加!important -->
+  <li>
+    <a href="/specials" class="featured" style="background-color: white">
+      Specials
+    </a>
+  </li>
+  <footer class="footer">
+    &copy; 2016 Wombat Coffee Roasters &mdash;
+    <a href="/terms-of-use">Terms of use</a>
+  </footer>
+</body>
+<style>
+  h1 {
+    color: #2f4f4f;
+    margin-bottom: 10px;
+  }
+  #main-nav {
+    margin-top: 10px;
+    list-style: none;
+    padding-left: 0;
+  }
+  #main-nav li {
+    display: inline-block;
+  }
+  #main-nav a {
+    color: white;
+    background-color: #13a4a4;
+    padding: 5px;
+    border-radius: 2px;
+    text-decoration: none;
+  }
+  /* 没有生效，类选择器比id选择器优先级高，但如果选择器的ID数量多，则它会胜出 */
+  /* 优先级的准确规则如下。
+ 如果选择器的 ID 数量更多，则它会胜出（即它更明确）。
+ 如果 ID 数量一致，那么拥有最多类的选择器胜出。
+ 如果以上两次比较都一致，那么拥有最多标签名的选择器胜出。
+先比较id选择器，再到类，最后到标签数量
+  */
+  /* 尽量不要使用!important符号 */
+
+  /* 这样也奏效了，优先级提到110 */
+
+  #main-nav .featured {
+    background-color: yellow;
+  }
+
+  /* 源码顺序，当优先级相同时，出现较晚的那个优先级胜出 */
+  .nav1 a {
+    color: white;
+    background-color: green;
+    padding: 5px;
+    border-radius: 2px;
+    text-decoration: none;
+  }
+  a.featured1 {
+    color: red;
+  }
+  /* 链接样式一定要按照顺序书写，不然不会生效，记忆口诀LoVe/HAte  即 link（链接）、visited（访问）、hover
+（悬停）、active（激活）。注*/
+
+  a:link {
+    color: blue;
+    text-decoration: none;
+  }
+  a:visited {
+    color: purple;
+  }
+
+  a:hover {
+    color: aqua;
+  }
+  a:active {
+    color: black;
+  }
+  /* 两条经验法则
+    1.不要使用ID选择器
+    2.不要使用!important */
+
+  /* 属性继承，默认情况下，和文本相关的属性会继承父级文本属性 */
+  body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  /* 设置页脚文本为黑色 */
+  .footer {
+    color: #666;
+    background-color: #ccc;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  /* 从页脚继承文本颜色,覆盖掉a:link的颜色 */
+  /* a继承footer颜色 */
+  .footer a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  /* 当footer颜色发生变化时,a的颜色也会发生变化 */
+  .footer {
+    color: green;
+  }
+
+  /* 使用initial关键字会把inherit继承的颜色复位为黑色,同时其他颜色也可以 ,其他属性的initial为默认值*/
+  .footer a {
+    color: initial;
+    font: 32px Helvetica, Arial, sans-serif;
+  }
+
+  /* 简写属性 上右下左 */
+  /* background是 background-color、background-image、
+  background-size、background-repeat、background-position、background-origin、
+  background-chip 以及 background-attachment的简写属性*/
+  /* border是border-width,border-style,border-color的简写属性 */
+  /* border-width是上写左右的简写属性 */
+  /*  简写属性会默默覆盖其他样式 */
+  /* 注意padding: 10px 15px 0 是设置左右内边距为 15px，上内边距为 10px，下内边距为 0。 */
+  .nav .featured {
+    /* 注意background-position、box-shadow、text-shadow的简写方向和正常的相反,先左右再上下 */
+    box-shadow: 10px 2px #6f9090;
+  }
+</style>
