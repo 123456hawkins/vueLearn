@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="grid">
+    <div class="a">a</div>
+    <div class="b">b</div>
+    <div class="c">c</div>
+    <div class="d">d</div>
+    <div class="e">e</div>
+    <div class="f">f</div>
+  </div>
+</body>
+
+</html>
+<style>
+  .grid {
+    display: grid;
+    /*定义等宽的3列 */
+    /* 种新单位 fr，代表每一列（或每一行）的分数单位
+（fraction unit） */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* 定义等宽的2列 */
+    grid-template-rows: 1fr 1fr;
+    /* 每个单元格间隔 */
+    grid-gap: 0.5em
+  }
+
+  .grid>* {
+    background-color: darkgray;
+    color: white;
+    padding: 2em;
+    border-radius: 0.5em;
+  }
+</style>
