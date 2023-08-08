@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <main class="main clearfix">
+    <h2>Running tips</h2>
+    <!-- 每两个媒体对象用一个行元素包裹起来 -->
+    <div class="row">
+      <!-- 每个媒体对象用一个类名为column-6的元素包起来，这样每个媒体对象都位于单独的列中 -->
+      <div class="column-6">
+        <div class="media">
+          <img class="media-image" src="runner.png">
+          <div class="media-body">
+            <h4>Strength</h4>
+            <p>
+              Strength training is an important part of
+              injury prevention. Focus on your core&mdash;
+              especially your abs and glutes.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="column-6">
+        <div class="media">
+          <img class="media-image" src="shoes.png">
+          <div class="media-body">
+            <h4>Cadence</h4>
+            <p>
+              Check your stride turnover. The most efficient
+              runners take about 180 steps per minute.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column-6">
+        <div class="media">
+          <img class="media-image" src="shoes.png">
+          <div class="media-body">
+            <h4>Change it up</h4>
+            <p>
+              Don't run the same every time you hit the
+              road. Vary your pace, and vary the distance
+              of your runs.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="column-6">
+        <div class="media">
+          <img class="media-image" src="runner.png">
+          <div class="media-body">
+            <h4>Focus on form</h4>
+            <p>
+              Run tall but relaxed. Your feet should hit
+              the ground beneath your hips, not out in
+              front of you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
+<style>
+  :root {
+    box-sizing: border-box;
+  }
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
+
+  body {
+    background-color: #eee;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  body *+* {
+    margin-top: 1.5em;
+  }
+
+  header {
+    padding: 1em 1.5em;
+    color: #fff;
+    background-color: #0072b0;
+    border-radius: .5em;
+    margin-bottom: 1.5em;
+  }
+
+  .main {
+    padding: 0 1.5em 1.5em;
+    background-color: #fff;
+    border-radius: .5em;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .media {
+    padding: 1.5em;
+    background-color: #eee;
+    border-radius: 0.5em;
+  }
+
+  /* 放置伪类元素外边距折叠 */
+  .clearfix::before,
+  .clearfix::after {
+    display: table;
+    content: " ";
+  }
+
+  /* 只有：：after伪类元素需要清除浮动 */
+  .clearfix::after {
+    clear: both;
+  }
+
+
+
+  /*图片浮动到左侧 */
+  .media-image {
+    float: left;
+    margin-right: 1.5em;
+
+  }
+
+  /* 删除猫头鹰选择器所添加的顶部外边距 */
+  .media-body {
+    margin-top: 0;
+    /* 创建一个新的BFC，这样正文就不会跟浮动的照片重叠 */
+    /* BFC 是网页的一块区域，元素基于这块区域布局。虽然 BFC 本身是环绕文档流的一部分，
+但它将内部的内容与外部的上下文隔离开 */
+    /* 给元素添加以下任意属性都会创建bfc */
+    /* 
+ float： left 或 right，不为 none 即可。
+ overflow：hidden、auto 或 scroll，不为 visible 即可。
+ display：inline-block、table-cell、table-caption、flex、inline-flex、
+grid 或 inline-grid。拥有这些属性的元素称为块级容器（block container）。
+ position：absolute 或 position: fixed。 */
+    overflow: auto;
+  }
+
+  /* 覆盖用户代理样式所添加的顶部外边距 */
+  .media-body h4 {
+    margin-top: 0;
+  }
+
+  .row {
+    margin-left: -0.75em;
+    margin-right: -0.75em;
+  }
+
+  .row::after {
+    /* 清除浮动规则，让行元素包含内部的浮动列 */
+    content: " ";
+    display: block;
+    clear: both;
+  }
+
+  /* 匹配所有类包含“column-”的元素 */
+  [class*="column-"] {
+    float: left;
+    padding: 0 0.75em;
+    /* 去掉列元素的外边距 */
+    margin-top: 0;
+
+  }
+
+
+
+  .column-6 {
+    width: 50%;
+  }
+
+  /* 总结
+ 浮动的设计初衷是让文字围绕一个元素排列，但有时这种效果并不是我们想要的。
+ 使用清除浮动来包含浮动元素。
+ BFC 有 3 个好处：包含浮动元素，防止外边距折叠，防止文档流围绕浮动元素排列。
+ 使用双容器模式让页面内容居中。
+ 使用媒体对象模式将描述文字定位到图片旁边。
+ 使用网格系统实现更丰富的网页布局。 */
+</style>
