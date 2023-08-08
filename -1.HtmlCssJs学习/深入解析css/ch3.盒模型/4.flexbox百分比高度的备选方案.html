@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 很多常见的设计需要等高列，比如本章的两列布局就是个典型的例子。如果将主列和侧边栏
+的高度对齐（如图 3-10 所示），看起来就会更精致。任意一列的内容增加，两列的高度都会增加，
+同时保持底部对齐。 -->
+  <header>
+    <h1>Franklin Running Club</h1>
+  </header>
+  <div class="wrapper">
+    <div class="container">
+      <main class="main">
+        <h2>Come join us!</h2>
+        <p>
+          The Franklin Running club meets at 6:00pm every Thursday
+          at the town square. Runs are three to five miles, at your
+          own pace.
+        </p>
+      </main>
+      <aside class="sidebar">
+        <div class="widget"></div>
+        <div class="widget"></div>
+      </aside>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<style>
+  body {
+    /*  除非别无选择，否则不要明确设置元素的高度。先寻找一个替代方案。设置高度
+一定会导致更复杂的情况。 */
+    background-color: #eee;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  header {
+    color: #fff;
+    background-color: #0072b0;
+    border-radius: .5em;
+  }
+
+  .container {
+    /* 当设置为flex布局。子元素不再需要dispaly和float1属性 */
+    /* 给容器设置 display: flex，它就变成了一个弹性容器（flex container），子元素默认等高。
+你可以给子元素设置宽度和外边距 */
+    /* 优先推荐使用flex布局 */
+    display: flex;
+    width: 100%;
+  }
+
+  .main {
+    /* 让列布局像表格的单元格一样 */
+    width: 70%;
+    background-color: #fff;
+    border-radius: .5em;
+  }
+
+  .sidebar {
+    width: 30%;
+    margin-left: 1.5em;
+    padding: 1.5em;
+    background-color: #fff;
+    border-radius: .5em;
+  }
+</style>

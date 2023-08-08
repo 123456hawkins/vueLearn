@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 很多常见的设计需要等高列，比如本章的两列布局就是个典型的例子。如果将主列和侧边栏
+的高度对齐（如图 3-10 所示），看起来就会更精致。任意一列的内容增加，两列的高度都会增加，
+同时保持底部对齐。 -->
+  <header>
+    <h1>Franklin Running Club</h1>
+  </header>
+  <div class="wrapper">
+    <div class="container">
+      <main class="main">
+        <h2>Come join us!</h2>
+        <p>
+          The Franklin Running club meets at 6:00pm every Thursday
+          at the town square. Runs are three to five miles, at your
+          own pace.
+        </p>
+      </main>
+      <aside class="sidebar">
+        <div class="widget"></div>
+        <div class="widget"></div>
+      </aside>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<style>
+  body {
+    background-color: #eee;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  header {
+    color: #fff;
+    background-color: #0072b0;
+    border-radius: .5em;
+  }
+
+  /* 使用负外边距解决main和sidebar中border-spacing导致左右为空的问题 */
+  .wrapper {
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+  }
+
+  .container {
+    /* 让容器布局变为表格布局 */
+    /* table布局会默认把长度扩到100%，而默认block不会 */
+    display: table;
+    width: 100%;
+    /* 设置水平间距和垂直间距 */
+    border-spacing: 1.5em 0;
+  }
+
+  .main {
+    /* 让列布局像表格的单元格一样 */
+    display: table-cell;
+    width: 70%;
+    background-color: #fff;
+    border-radius: .5em;
+  }
+
+  .sidebar {
+    display: table-cell;
+    width: 30%;
+    /* 设置table-cell后外边距不再生效 */
+    margin-left: 1.5em;
+    padding: 1.5em;
+    background-color: #fff;
+    border-radius: .5em;
+  }
+</style>

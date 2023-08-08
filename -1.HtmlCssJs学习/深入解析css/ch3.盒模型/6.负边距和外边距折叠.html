@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 如果设置左边或顶部的负
+外边距，元素就会相应地向左或向上移动，导致元素与它前面的元素重叠，如果设置右边或者底
+部的负外边距，并不会移动元素，而是将它后面的元素拉过来。给 -->
+
+  <!-- 当顶部和/或底部的外边距相邻时，就会重叠，产生单个外边距。这种现象被称作折叠。 -->
+  <!--  只有上下外边距会产生折叠，左右外边距不会折叠。 -->
+
+
+  <!-- 放置外边距折叠 -->
+  <!-- 
+ 对容器使用 overflow: auto（或者非 visible 的值），防止内部元素的外边距跟容器
+  外部的外边距折叠。这种方式副作用最小。
+ 在两个外边距之间加上边框或者内边距，防止它们折叠。
+ 如果容器为浮动元素、内联块、绝对定位或固定定位时，外边距不会在它外面折叠。
+ 当使用 Flexbox 布局时，弹性布局内的元素之间不会发生外边距折叠。网格布局（参见
+  第 6 章）同理。
+ 当元素显示为 table-cell 时不具备外边距属性，因此它们不会折叠。此外还有 table-row
+  和大部分其他表格显示类型，但不包括 table、table-inline、table-caption。 -->
+  <div class="container">
+    <div class="box"></div>
+  </div>
+</body>
+
+</html>
+<style>
+  :root {
+    font-size: 1.5em;
+  }
+
+  .container {
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20em;
+    height: 20em
+  }
+
+  .box {
+    margin-right: -20em;
+    background-color: aqua;
+    width: 10em;
+    height: 10em;
+  }
+</style>
