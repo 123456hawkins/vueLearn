@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Ink</h1>
+    </header>
+    <nav>
+      <ul class="site-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/features">Features</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/support">Support</a></li>
+        <li class="nav-right">
+          <a href="/about">About</a>
+        </li>
+      </ul>
+    </nav>
+    <main class="flex">
+      <div class="column-main tile">
+        <h1>Team collaboration done right</h1>
+        <p>Thousands of teams from all over the
+          world turn to <b>Ink</b> to communicate
+          and get things done.</p>
+      </div>
+      <div class="column-sidebar">
+        <div class="tile">
+          <form class="login-form">
+            <h3>Login</h3>
+            <p>
+              <label for="username">Username</label>
+              <input id="username" type="text" name="username" />
+            </p>
+            <p>
+              <label for="password">Password</label>
+              <input id="password" type="password" name="password" />
+            </p>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+        <div class="tile centered">
+          <small>Starting at</small>
+          <div class="cost">
+            <span class="cost-currency">$</span>
+            <span class="cost-dollars">20</span>
+            <span class="cost-cents">.00</span>
+          </div>
+          <a class="cta-button" href="/pricing">
+            Sign up
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
+<style>
+  :root {
+    box-sizing: border-box;
+  }
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
+
+  body {
+    background-color: #709b90;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  body *+* {
+    margin-top: 1.5em;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .site-nav {
+    display: flex;
+    padding-left: 0;
+    list-style-type: none;
+    background-color: #5f4b44;
+    padding: 0.5em;
+  }
+
+  /* 选中子li和他的兄弟标签 */
+  .site-nav>li {
+    margin-top: 0;
+  }
+
+  .site-nav>li>a {
+    background-color: #cc6b5a;
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 1em;
+  }
+
+  /* 选中第二个li起的所有li */
+  .site-nav>li+li {
+    margin-left: 1.5em;
+  }
+
+  .site-nav>.nav-right {
+    /* 填充所有可用空间,挤到最右边 */
+    margin-left: auto;
+  }
+
+  .tile {
+    padding: 1.5em;
+    background-color: #fff;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  /* 去掉顶部外边距，给每个弹
+性子元素之间加上间隔 */
+  .flex>*+* {
+    margin-top: 0;
+    margin-left: 1.5em;
+  }
+
+  /* 指定这列占main列占2/3宽度, sidebar占1/3宽度*/
+  /* flex 属性是三个不同大小属性的简写：flex-grow、flex-shrink 和 flex-basis。在代
+码清单 5-7 里，只提供了 flex-grow 的值，剩下的两个属性是默认值（分别是 1 和 0%）， */
+  .column-main {
+    /* flex 属性是三个不同大小属性的简写：flex-grow、flex-shrink 和 flex-basis。在代
+码清单 5-7 里，只提供了 flex-grow 的值，剩下的两个属性是默认值（分别是 1 和 0%），因此
+flex: 2 等价于 flex: 2 1 0%。 */
+
+    /* flex-basis 定义了元素大小的基准值，即一个初始的“主尺寸”。flex-basis 属性可以设
+置为任意的 width 值，包括 px、em、百分比。它的初始值是 auto，此时浏览器会检查元素是否
+设置了 width 属性值。如果有，则使用 width 的值作为 flex-basis 的值；如果没有，则用元
+素内容自身的大小。 */
+
+    /* flex-grow:  多出来的留白（或剩余宽度）会按照 flex-grow（增长因子）的值分配给每个弹性子元素，
+flex-grow 的值为非负整数。如果一个弹性子元素的 flex-grow 值为 0，那么它的宽度不会超
+过 flex-basis 的值； */
+
+    flex: 66.67%;
+  }
+
+  .column-sidebar {
+    flex: 33.33%;
+    display: flex;
+    /* flex-direction: 还支持row-reverse让排列顺序反转; */
+    flex-direction: column;
+  }
+
+  .column-sidebar>.tile {
+    flex: 1;
+  }
+
+  .login-form h3 {
+    margin: 0;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  /* 给输入框(不包含复选框和单选按钮)添加样式 */
+  .login-form input:not([type=checkbox]):not([type=radio]) {
+    display: block;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .login-form button {
+    margin-top: 1em;
+    border: 1px solid #cc6b5a;
+    background-color: white;
+    padding: .5em 1em;
+    /* 将鼠标指针在使用者与网页元素进行交互时显示为手型指针，以表示该元素可以被点击或选择。这样可以提醒使用者该元素具有交互性， */
+    cursor: pointer;
+
+    /* 创建一个弹性盒子涉及的方法 */
+    /* 创建一个弹性盒子需要用到前面提及的这些方法。
+     选择一个容器及其子元素，给容器设置 display: flex
+     如有必要，给容器设置 flex-direction
+     给弹性子元素设置外边距和/或 flex 值，用来控制它们的大小 */
+    /* flex-wrap: nowrap;代表弹性子元素不会换行显示 */
+    /* justify-content: center;控制元素在主轴上的位置居中 */
+    /* align-items: center;控制元素在副轴上的位置居中 */
+    /* align-content: center;控制元素在副轴上的间距(见书118) */
+  }
+
+  .centered {
+    text-align: center;
+  }
+
+  .cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: .7;
+  }
+
+  .cost>span {
+    margin-top: 0;
+  }
+
+  .cost-currency {
+    font-size: 2rem;
+  }
+
+  .cost-dollars {
+    font-size: 4rem;
+  }
+
+  .cost-cents {
+    font-size: 1.5rem;
+    align-self: flex-start;
+  }
+
+  .cta-button {
+    display: block;
+    background-color: #cc6b5a;
+    color: white;
+    padding: .5em 1em;
+    text-decoration: none;
+  }
+</style>
