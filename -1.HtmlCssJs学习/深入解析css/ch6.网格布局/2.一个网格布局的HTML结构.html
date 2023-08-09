@@ -77,6 +77,7 @@
 
   .container {
     display: grid;
+    /* 定义两个垂直轨道 */
     grid-template-columns: 2fr 1fr;
     /* 定义四个水平轨道,大小为auto */
     grid-template-rows: repeat(4, auto);
@@ -85,5 +86,130 @@
     margin: 0 auto;
   }
 
-  
+  header,
+  nav {
+    /* 从1号垂直网格线跨越到3号垂直网格线 */
+    grid-column: 1/3;
+    /* 刚好占据一条水平网格轨道 */
+    grid-row: span 1;
+  }
+
+  .main {
+    grid-column: 1/2;
+    grid-row: 3/5;
+  }
+
+  .sidebar-top {
+    grid-column: 2/3;
+    grid-row: 3/4;
+  }
+
+  .sidebar-bottom {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+  }
+
+  .tile {
+    padding: 1.5em;
+    background-color: #fff;
+  }
+
+  .tile>:first-child {
+    margin-top: 0;
+  }
+
+  .tile *+* {
+    margin-top: 1.5em;
+  }
+
+  .page-heading {
+    margin: 0;
+  }
+
+  .site-nav {
+    display: flex;
+    margin: 0;
+    padding: .5em;
+    background-color: #5f4b44;
+    list-style-type: none;
+    border-radius: .2em;
+  }
+
+  .site-nav>li {
+    margin-top: 0;
+  }
+
+  .site-nav>li>a {
+    display: block;
+    padding: .5em 1em;
+    background-color: #cc6b5a;
+    color: white;
+    text-decoration: none;
+  }
+
+  .site-nav>li+li {
+    margin-left: 1.5em;
+  }
+
+  .site-nav>.nav-right {
+    margin-left: auto;
+  }
+
+  .login-form h3 {
+    margin: 0;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .login-form input:not([type=checkbox]):not([type=radio]) {
+    display: block;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .login-form button {
+    margin-top: 1em;
+    border: 1px solid #cc6b5a;
+    background-color: white;
+    padding: .5em 1em;
+    cursor: pointer;
+  }
+
+  .centered {
+    text-align: center;
+  }
+
+  .cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: .7;
+  }
+
+  .cost>span {
+    margin-top: 0;
+  }
+
+  .cost-currency {
+    font-size: 2rem;
+  }
+
+  .cost-dollars {
+    font-size: 4rem;
+  }
+
+  .cost-cents {
+    font-size: 1.5rem;
+    align-self: flex-start;
+  }
+
+  .cta-button {
+    display: block;
+    background-color: #cc6b5a;
+    color: white;
+    padding: .5em 1em;
+    text-decoration: none;
+  }
 </style>
