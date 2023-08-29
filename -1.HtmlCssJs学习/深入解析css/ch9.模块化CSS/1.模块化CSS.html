@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="message">
+    Save successful
+  </div>
+  <div class="message message--error">
+    Save error
+  </div>
+  <button class="button button--danger button--large">大按钮</button>
+  <button class="button button--success button--small">小按钮</button>
+  <div class="media media--right">
+    <img class="media__image" src="runner.png">
+    <div class="media__body">
+      <h4 class="text-center">Strength</h4>
+      <p>
+        Strength training is an important part of
+        injury prevention. Focus on your core&mdash;
+        especially your abs and glutes.
+      </p>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropdown__toggle">Main Menu</button>
+    <div class="dropdown__drawer">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/coffees">Coffees</a></li>
+        <li><a href="/brewers">Brewers</a></li>
+        <li><a href="/specials">Specials</a></li>
+        <li><a href="/about">About us</a></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var toggle =
+        document.querySelector('.dropdown__toggle');
+      toggle.addEventListener('click', function (event) {
+        event.preventDefault();
+        var dropdown = event.target.parentNode;
+        dropdown.classList.toggle('is-open');
+      }
+      );
+    }());
+
+  </script>
+</body>
+<style>
+  .message {
+    padding: 0.8em 1.2em;
+    border-radius: 0.2em;
+    border: 1px solid #265559;
+    color: #265559;
+    background-color: #e0f0f2;
+  }
+
+  /* 带修饰名的消息模块 */
+  .message--success {
+    color: #2f5926;
+    border-color: #2f5926;
+    background-color: #cfe8c9;
+  }
+
+  .message--warning {
+    color: #594826;
+    border-color: #594826;
+    background-color: #e8dec9;
+  }
+
+  .message--error {
+    color: #59262f;
+    border-color: #59262f;
+    background-color: #e8c9cf;
+  }
+
+  .button {
+    padding: 0.5em 0.8em;
+    border: 1px solid #265559;
+    border-radius: 0.2em;
+    background-color: transparent;
+    font-size: 1rem;
+  }
+
+  .button--success {
+    border-color: #cfe8c9;
+    color: #fff;
+    background-color: #2f5926;
+  }
+
+  .button--danger {
+    border-color: #e8c9c9;
+    color: #fff;
+    background-color: #a92323;
+  }
+
+  .button--small {
+    font-size: 0.8rem;
+  }
+
+  .button--large {
+    font-size: 1.2rem;
+  }
+
+  .media {
+    padding: 1.5em;
+    background-color: #eee;
+    border-radius: 0.5em;
+  }
+
+  .media::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .media__image {
+    float: left;
+    margin-right: 1.5em;
+  }
+
+  .media__body {
+    overflow: auto;
+    margin-top: 0;
+  }
+
+  .media__body>h4 {
+    margin-top: 0;
+  }
+
+  /* 覆盖样式为右浮动 */
+  .media--right>.media__image {
+    float: right;
+  }
+
+  .dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .dropdown__toggle {
+    padding: 0.5em 2em 0.5em 1.5em;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #eee;
+  }
+
+  .dropdown__toggle::after {
+    content: "";
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    border: 0.3em solid;
+    border-color: black transparent transparent;
+  }
+
+  .dropdown__drawer {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 2.1em;
+    min-width: 100%;
+    background-color: #eee;
+  }
+
+  .dropdown.is-open .dropdown__toggle::after {
+    top: 0.7em;
+    border-color: transparent transparent black;
+  }
+
+  .dropdown.is-open .dropdown__drawer {
+    display: block;
+  }
+
+  .menu {
+    margin: 0;
+    padding-left: 0;
+    list-style-type: none;
+    border: 1px solid #999;
+  }
+
+  .menu>li+li {
+    border-top: 1px solid #999;
+  }
+
+  .menu>li>a {
+    display: block;
+    padding: 0.5em 1.5em;
+    background-color: #eee;
+    color: #369;
+    text-decoration: none;
+  }
+
+  .menu>li>a:hover {
+    background-color: #fff;
+  }
+
+  /* 工具类 */
+  /* 在需要改变时 添加样式就好 */
+  .text-center {
+    text-align: center !important;
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  .clearfix::before,
+  .clearfix::after {
+    content: " ";
+    display: table;
+  }
+
+  .clearfix::after {
+    clear: both;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /*  把 CSS 拆解成可复用的模块。
+ 不要书写可能影响其他模块或者改变其他模块外观的样式。
+ 使用变体类，提供同一模块的不同版本。
+ 把较大的结构拆解成较小的模块，然后把多个模块组合在一起构建页面。
+ 在样式表中，把所有用于同一个模块的样式放在一起。
+ 使用一种命名约定，比如双连字符和双下划线，以便一眼就可以看清楚模块的结构。 */
+</style>
+
+</html>
