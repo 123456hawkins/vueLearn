@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="display: flex;flex-direction:column ;">
+    <!-- <div class="fadeBoxleft"></div> -->
+    <div class="fadeBox"></div>
+    <div class="fadeBoxStripe"></div>
+    <div class="fadeBoxRepeat"></div>
+  </div>
+  <script>
+
+  </script>
+</body>
+<style>
+  /* background属性详解
+ background-image——指定一个文件或者生成的颜色渐变作为背景图片。
+ background-position——设置背景图片的初始位置。
+ background-size——指定元素内背景图片的渲染尺寸。
+ background-repeat——决定在需要填充整个元素时，是否平铺图片。
+ background-origin——决定背景相对于元素的边框盒、内边距框盒（初始值）或内容
+盒子来定位。
+ background-clip——指定背景是否应该填充边框盒（初始值）、内边距框盒或内容盒子。
+ background-attachment——指定背景图片是随着元素上下滚动（初始值），还是固定
+在视口区域。注意，使用 fixed 值会对页面性能产生负面影响。
+ background-color——指定纯色背景，渲染到背景图片下方。
+
+background-image 属性非常有意思。你已经知道这个属性可以接受一个图片 URL 路径
+，而它也可以接受一个渐变函数。
+*/
+  .fadeBox {
+    height: 200px;
+    width: 100%;
+    /* 用三个参数来定义行为：角度、起始颜色和终止颜色 */
+    background-image: linear-gradient(to right, red 0%, white 90%, blue 100%);
+  }
+
+  .fadeBoxStripe {
+    height: 200px;
+    width: 100%;
+    /* 用三个参数来定义行为：角度、起始颜色和终止颜色 */
+    /* 0-40红色 40-60白色 60-100蓝色 */
+    background-image: linear-gradient(to right, red 40%, white 40%, white 60%, blue 60%);
+  }
+
+  .fadeBoxRepeat {
+    height: 1em;
+    width: 100%;
+    background-image: repeating-linear-gradient(-45deg, #57b, #57b 10px, #148 10px, #148 20px);
+  }
+
+  .fadeBoxleft {
+    float: left;
+    height: 200px;
+    width: 400px;
+    /* 用三个参数来定义行为：角度、起始颜色和终止颜色 */
+    /* 等价为想左过度 */
+    background-image: linear-gradient(-90deg, white, red);
+  }
+</style>
+
+</html>
