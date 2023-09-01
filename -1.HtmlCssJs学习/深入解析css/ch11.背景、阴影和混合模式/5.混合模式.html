@@ -2,25 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 
 <body>
-  <div class="imgBox"></div>
-  <script></script>
+  <div class="imBox"></div>
+  <script>
+
+  </script>
 </body>
+
+</html>
 <style>
   .imBox {
     min-height: 400px;
     background-image: url(./bear.jpg), url(./bear.jpg);
+    /* cover可以调整背景图大小，使其填满整个元素，会导致图片的边缘被裁剪掉一部分；使用contain保证整个背景图片可见，可能会导致元素的一些地方不会被背景图片覆盖 */
     background-size: cover;
     background-repeat: no-repeat;
+    /* 为每个图片设置初始位置 */
     background-position: -30vw, 30vw;
+    /* 应用混合模式，第二章透明显示 */
     background-blend-mode: multiply;
   }
 </style>
-
-</html>

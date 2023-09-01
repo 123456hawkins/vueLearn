@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="blend">
+    <h1>WARNING</h1>
+  </div>
+</body>
+
+</html>
+<style>
+  /*  使用渐变和阴影为页面增加立体效果。
+ 基本的扁平化设计也可以少量应用阴影和渐变。
+ 带有明确颜色节点的渐变，可以为元素添加条纹效果。
+ 小巧的背景渐变比纯色背景更能提升设计效果。
+ 使用混合模式可以为图片着色或者添加纹理效果。 */
+  .blend {
+    background-image: url("./bear.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 5em 0 10em;
+  }
+
+  .blend>h1 {
+    margin: 0;
+    font-size: 6rem;
+    text-align: center;
+    mix-blend-mode: hard-light;
+    background-color: #c333;
+    color: #808080;
+    border: 0.1em solid #ccc;
+    border-width: 0.1em 0;
+  }
+</style>

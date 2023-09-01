@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="blend">
+
+  </div>
+</body>
+
+</html>
+<style>
+  .blend {
+    min-height: 400px;
+    background-image: url("./bear.jpg");
+    background-color: #148;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 使用明度混合模式，最终是完全使用背景色图层的颜色，但是明暗程度来自大熊图片 */
+    /*  还有其他模式详见书本256页码*/
+    background-blend-mode: difference;
+
+  }
+</style>
