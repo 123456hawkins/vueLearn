@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>Hover over me</button>
+  <div class="container">
+    <div class="box"></div>
+  </div>
+</body>
+
+</html>
+<style>
+  /* transition-property 这个属性可以指定哪些属性使用过渡。在示例中，关键字 all 意
+味着所有的属性变化都使用过渡。transition-duration 属性代表过渡到最终值之前需要多长
+时间，本例中设置为 0.5s，代表 0.5s。 */
+  /* transition属性接受四个参数值，分别
+代表四个过渡属性 transition-property、transition-duration、transition-timingfunction 和 transition-delay。 */
+  :root {
+    /* 生效属性 持续时间 定时函数 延迟时间 */
+    transition: background-color 2 linear 0.5s;
+  }
+
+  button {
+    background-color: hsl(180, 50%, 50%);
+    border: 0;
+    color: white;
+    font-size: 1rem;
+    padding: .3em 1em;
+    transition-property: all;
+    transition-duration: 2s;
+  }
+
+  button:hover {
+    background-color: hsl(0, 50%, 50%);
+    border-radius: 1em;
+  }
+
+  .container {
+    position: relative;
+    height: 30px;
+  }
+
+  .box {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    background-color: hsl(130, 50%, 50%);
+    /* 定时函数支持 ease-in ，linear，ease-out */
+    /* 浏览器使用贝塞尔曲线作为随时间变化的函数 */
+    /*  线性——颜色变化和淡出、淡入效果。
+ 减速——用户发起的变化。用户点击按钮或者划过元素的时候，使用 ease-out 或者
+类似曲线。这样用户就可以看到快速发生的反馈，及时响应输入，然后元素慢慢过渡到
+最终状态。
+ 加速——系统发起的变化。当内容加载完成或者超时事件触发的时候，使用 ease-in 或
+者类似曲线。这样元素就可以慢慢引起用户注意，然后速度越来越快直到完成最终变化。 */
+    /*  */
+    transition: all 1s steps(2, start);
+  }
+
+  .container:hover .box {
+    left: 400px;
+  }
+</style>
