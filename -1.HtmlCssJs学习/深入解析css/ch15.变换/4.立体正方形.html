@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="cube">
+      <div class="cube__face cube__face--front">front</div>
+      <div class="cube__face cube__face--back">back</div>
+      <div class="cube__face cube__face--right">right</div>
+      <div class="cube__face cube__face--left">left</div>
+      <div class="cube__face cube__face--top">top</div>
+      <div class="cube__face cube__face--bottom">bottom</div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+<style>
+  .scene {
+    width: 200px;
+    height: 200px;
+    perspective: 600px;
+  }
+
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .cube__face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
+
+  .cube__face--front {
+    background-color: red;
+    transform: rotateY(0deg) translateZ(100px);
+    
+    /* z轴还要移动才能看到其他面 */
+
+  }
+
+  .cube__face--right {
+    background-color: green;
+    transform: rotateY(90deg) translateZ(100px);
+    
+  }
+
+  .cube__face--back {
+    background-color: blue;
+    transform: rotateY(180deg) translateZ(100px);
+    
+  }
+
+  .cube__face--left {
+    background-color: aqua;
+    transform: rotateY(-90deg) translateZ(100px);
+    
+  }
+
+  .cube__face--top {
+    background-color: purple;
+    transform: rotateX(90deg) translateZ(100px);
+    
+  }
+
+  .cube__face--bottom {
+    background-color: yellow;
+    transform: rotateX(-90deg) translateZ(100px);
+    
+  }
+</style>

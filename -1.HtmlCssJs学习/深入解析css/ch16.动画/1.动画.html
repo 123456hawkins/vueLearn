@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="box"></div>
+</body>
+
+</html>
+<style>
+  /* 定义动画 */
+  @keyframes over-and-back {
+    0% {
+      background-color: green;
+      transform: translate(0);
+    }
+
+    50% {
+      transform: translate(500px);
+    }
+
+    100% {
+
+      background-color: yellow;
+      transform: translate(0);
+    }
+
+
+
+  }
+/* animation 属性是
+好几个属性的简写。在这个演示中，我们实际上指定了以下四个属性。
+ animation-name（over-and-back）——代表动画名称，就像@keyframes 规则定义
+的那样。
+ animation-duration（1.5s）——代表动画持续时间，在本例中是 1.5s。
+ animation-timing-function（linear）——代表定时函数，用来描述动画如何加速
+和/或减速。可以是贝塞尔曲线或者关键字值，就像过渡使用的定时函数一样（ease-in、
+ease-out，等等）。
+ animation-iteration-count（3）——代表动画重复的次数。初始值默认是 1。 */
+  .box {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    animation: over-and-back 1.5s ease-in-out 30;
+  }
+</style>
