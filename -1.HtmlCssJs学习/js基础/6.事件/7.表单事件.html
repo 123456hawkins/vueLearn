@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- input事件当<input>、<select>、<textarea>的值发生变化时触发。对于复选框（<input type=checkbox>）或单选框（<input type=radio>），用户改变选项时，也会触发这个事件。另外，对于打开contenteditable属性的元素，只要值发生变化，也会触发input事件。
+
+input事件的一个特点，就是会连续触发，比如用户每按下一次按键，就会触发一次input事件。 -->
+  <select id="mySelect" onchange="change(event)">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+  <!-- invalid事件，如果表单元素值不满足校验条件，会触发invalid事件 -->
+  <form>
+    <input type="text" required oninvalid="console.log('invalid input')" onreset="console.log('RESET');" />
+    <button type="submit">提交</button>
+  </form>
+  <input id="myinput">
+  <script>
+    function change (event) {
+      console.log(event.target.value);
+    }
+    function inputHandler (e) {
+      console.log(e.target.value);
+    }
+    var mySelect = document.querySelector('#mySelect')
+    // 绑定事件的回调
+    // nput事件的一个特点，就是会连续触发，比如用户每按下一次按键，就会触发一次input事件。
+    mySelect.addEventListener('input', inputHandler)
+    var input = document.getElementById('myinput');
+    input.addEventListener('input', myFunction, false);
+
+    function myFunction (e) {
+      console.log(e.data);
+    }
+  </script>
+
+</body>
+
+</html>
