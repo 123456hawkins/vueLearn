@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--  浏览器里面，window对象（注意，w为小写）指当前的浏览器窗口。它也是当前页面的顶层对象，即最高一层的对象，所有其他对象都是它的下属。一个变量如果未声明，那么默认就是顶层对象的属性。-->
+
+  <!-- 
+（1）window.screenX，window.screenY
+window.screenX和window.screenY属性，返回浏览器窗口左上角相对于当前屏幕左上角的水平距离和垂直距离（单位像素）。这两个属性只读。
+
+（2） window.innerHeight，window.innerWidth
+window.innerHeight和window.innerWidth属性，返回网页在当前窗口中可见部分的高度和宽度，即“视口”（viewport）的大小（单位像素）。这两个属性只读。
+
+（3）window.outerHeight，window.outerWidth
+window.outerHeight和window.outerWidth属性返回浏览器窗口的高度和宽度，包括浏览器菜单和边框（单位像素）。这两个属性只读
+
+（4）window.scrollX，window.scrollY
+window.scrollX属性返回页面的水平滚动距离，window.scrollY属性返回页面的垂直滚动距离，单位都为像素。这两个属性只读。
+-->
+
+
+  <!-- 组件属性返回浏览器的组件对象。这样的属性有下面几个。
+
+window.locationbar：地址栏对象
+window.menubar：菜单栏对象
+window.scrollbars：窗口的滚动条对象
+window.toolbar：工具栏对象
+window.statusbar：状态栏对象
+window.personalbar：用户安装的个人工具栏对象 -->
+  <script>
+    // var result = window.prompt('获取prompt信息')
+    // console.log(result);
+
+    var result2 = window.confirm('nihaoma')
+    if (result2) {
+      window.open('https://www.baidu.com',
+        'DefinitionsWindows',
+        'height=200,width=200,location=no,status=yes,resizable=yes,scrollbars=yes')
+    }
+    // load事件发生在文档在浏览器窗口加载完毕时。window.onload属性可以指定这个事件的回调函数。
+    window.onload = function () {
+      var e = document.getElementsByClassName('example');
+      for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+      }
+    }
+    // error事件和onerror属性
+    // 出错信息 出错脚本的网址 行号 列号 错误对象
+    window.onerror = function (message, filename, lineno, colno, error) {
+      console.log("出错了！--> %s", error.stack);
+    };
+  </script>
+</body>
+
+</html>
