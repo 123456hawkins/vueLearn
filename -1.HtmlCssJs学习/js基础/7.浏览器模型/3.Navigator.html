@@ -16,17 +16,29 @@
     for (var i = 0; i < pluginsLength; i++) {
       console.log('插件' + i + ':');
       console.log(navigator.plugins[i].name);
-      console.log(navigator.plugins[i].filename);
-      console.log(navigator.plugins[i].description);
-      console.log(navigator.plugins[i].version);
+
     }
     console.log('使用的语言:', window.navigator.language);
     var position = window.navigator.geolocation.getCurrentPosition(function () {
       console.log('请求地址成功！');
+      console.log('获取当前位置', position);
     }, function () {
       console.log('请求地址失败！');
     },)
-    console.log('获取当前位置', position);
+
+
+    var cenble = window.navigator.cookieEnabled
+    console.log('cookie能否使用', cenble);
+
+    window.navigator.clipboard.readText().then((ctext) => { console.log('剪切板内容', ctext); })
+
+    console.log('---------实验属性-------------');
+    var memory = window.navigator.devicMemory
+    console.log('内存容量', memory);
+    var hc = window.navigator.hardwareConcurrency
+    console.log('逻辑处理核心数：', hc);
+    var connect = window.navigator.connection
+    console.log('网络', connect);
   </script>
 </body>
 
