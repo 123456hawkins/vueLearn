@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- window.navigator属性指向一个包含浏览器和系统信息的 Navigator 对象。脚本通过这个属性了解用户的环境信息。 -->
+  <script>
+    console.log('安装的插件：');
+    var pluginsLength = navigator.plugins.length;
+    for (var i = 0; i < pluginsLength; i++) {
+      console.log('插件' + i + ':');
+      console.log(navigator.plugins[i].name);
+      console.log(navigator.plugins[i].filename);
+      console.log(navigator.plugins[i].description);
+      console.log(navigator.plugins[i].version);
+    }
+    console.log('使用的语言:', window.navigator.language);
+    var position = window.navigator.geolocation.getCurrentPosition(function () {
+      console.log('请求地址成功！');
+    }, function () {
+      console.log('请求地址失败！');
+    },)
+    console.log('获取当前位置', position);
+  </script>
+</body>
+
+</html>
