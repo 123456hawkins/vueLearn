@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 上传文件 -->
+  <input type="file" id="fileInput">
+  <progress min="0" max="100" id="progressBar"></progress>
+  <div id="progressText"></div>
+
+  <script>
+
+    var url = 'http://127.0.0.1:3000/upload'; // 请替换为你的后端上传地址
+    const fileInput = document.getElementById('fileInput');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    fileInput.addEventListener('change', (e) => {
+
+      e.preventDefault(); // 阻止默认行为
+      e.stopPropagation(); // 阻止事件冒泡
+      e.stopImmediatePropagation();
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.upload.addEventListener('progress', (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          progressBar.value = percentComplete;
+          progressText.innerText = `${Math.round(percentComplete)}%`
+        }
+      });
+      xhr.onload = () => {
+        if (xhr.status == 200) {
+          console.log('上传完成');
+        } else {
+          console.error('上传失败');
+        }
+      };
+      xhr.send(formData)
+      return false
+    })
+  </script>
+</body>
+
+</html>

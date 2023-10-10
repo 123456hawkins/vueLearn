@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 浏览器安全的基石是“同源政策”（same-origin policy）。 -->
+  <!-- 最初，它的含义是指，A 网页设置的 Cookie，B 网页不能打开，除非这两个网页“同源”。所谓“同源”指的是“三个相同”。 -->
+  <!-- 同源策略
+    协议相同
+    域名相同
+    端口相同 -->
+
+  <!-- 同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。 -->
+
+  <!-- 如果非同源,会有三种行为受到限制 -->
+  <!-- （1） 无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB。
+       （2） 无法接触非同源网页的 DOM。
+       （3） 无法向非同源地址发送 AJAX 请求（可以发送，但浏览器会拒绝接受响应）。 -->
+
+
+  <!-- Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。如果两个网页一级域名相同，只是次级域名不同，浏览器允许通过设置document.domain共享 Cookie。 -->
+  <!-- 举例来说，A 网页的网址是http://w1.example.com/a.html，B 网页的网址是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享 Cookie。因为浏览器通过document.domain属性来检查是否同源 -->
+  <!-- 注意，A 和 B 两个网页都需要设置document.domain属性，才能达到同源的目的。因为设置document.domain的同时，会把端口重置为null，因此如果只设置一个网页的document.domain，会导致两个网址的端口不同，还是达不到同源的目的。 -->
+
+  <!-- iframe元素可以在当前网页之中，嵌入其他网页。每个iframe元素形成自己的窗口，即有自己的window对象。iframe窗口之中的脚本，可以获得父窗口和子窗口。但是，只有在同源的情况下，父窗口和子窗口才能通信；如果跨域，就无法拿到对方的 DOM。 -->
+  <!-- <iframe id="myframe" src="https://www.baidu.com"></iframe> -->
+  <iframe id="myframe1"></iframe>
+  <script>
+    // const f1 = document.getElementById("myframe").contentWindow.document
+    // console.log(f1);//报错,因为非同源,所以拿不到网页
+
+    // 片段表示符号,的是，URL 的#号后面的部分，比如http://example.com/x.html#fragment的#fragment。如果只是改变片段标识符，页面不会重新刷新。
+    // 父窗口把所要传递的信息,写入iframe窗口的片段标识符
+    // var src = originURL + '#' + data;
+    // document.getElementById("myframe1").src = src
+
+    // 为了解决同源问题,h5引入了一个全新的API,引入了一个全新的API:跨文档通信API
+    // window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。举例来说，父窗口aaa.com向子窗口bbb.com发消息，调用postMessage方法就可以了
+    var popup = window.open('about:blank', 'baidu')
+    popup.postMessage('helloworld', 'about:blank')
+
+    // 1.JSONP解决跨域问题
+    function addScriptTag (src) {
+      var script = document.createElement('script');
+      script.setAttribute('type', 'text/javascript');
+      script.src = src;
+      document.body.appendChild(script);
+    }
+
+    window.onload = function () {
+      //向浏览器添加script标签
+      addScriptTag('http://example.com/ip?callback=foo');
+    }
+
+    function foo (data) {
+      console.log('Your public IP address is: ' + data.ip);
+    };
+    // 注意，请求的脚本网址有一个callback参数（?callback=bar），用来告诉服务器，客户端的回调函数名称（bar）。
+
+// 第二步，服务器收到请求后，拼接一个字符串，将 JSON 数据放在函数名里面，作为字符串返回（bar({...})）。
+
+// 第三步，客户端会将服务器返回的字符串，作为代码解析，因为浏览器认为，这是<script>标签请求的脚本内容。这时，客户端只要定义了bar()函数，就能在该函数体内，拿到服务器返回的 JSON 数据。
+
+
+  // 2.websocket解决同源问题
+  // WebSocket 是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信
+
+  </script>
+</body>
+<!-- 这里可以跨域 -->
+<script src="http://api.foo.com?callback=bar"></script>
+
+</html>

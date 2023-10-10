@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  
+  <!-- 具体来说，AJAX 包括以下几个步骤。
+
+1创建 XMLHttpRequest 实例
+2发出 HTTP 请求
+3接收服务器传回的数据
+4更新网页数据 
+
+概括起来，就是一句话，AJAX 通过原生的XMLHttpRequest对象发出 HTTP 请求，
+得到服务器返回的数据后，再进行处理。现在，服务器返回的都是 JSON 格式的数据
+，XML 格式已经过时了，但是 AJAX 这个名字已经成了一个通用名词，字面含义已经消失了。-->
+  <script>
+    var xhr = new XMLHttpRequest();
+    // 第三个参数代表是异步的
+    // 新建链接
+    xhr.open('GET', 'http://127.0.0.1:3000/', true)
+    // 监听
+    // XMLHttpRequest.onreadystatechange属性指向一个监听函数。readystatechange事件发生时（实例的readyState属性变化），就会执行这个属性。
+    xhr.onreadystatechange = function () {
+      // 通信成功时，readyState状态为4
+      // 0，表示 XMLHttpRequest 实例已经生成，但是实例的open()方法还没有被调用。
+      // 1，表示open()方法已经调用，但是实例的send()方法还没有调用，仍然可以使用实例的setRequestHeader()方法，设定 HTTP 请求的头信息。
+      // 2，表示实例的send()方法已经调用，并且服务器返回的头信息和状态码已经收到。
+      // 3，表示正在接收服务器传来的数据体（body 部分）。这时，如果实例的responseType属性等于text或者空字符串，responseText属性就会包含已经收到的部分信息。
+      // 4，表示服务器返回的数据已经完全接收，或者本次接收已经失败。
+      // 通信过程中，每当实例对象发生状态变化，它的readyState属性的值就会改变。这个值每一次变化，都会触发readyStateChange事件。
+      if (xhr.readyState === 4) {
+        // XMLHttpRequest.status属性返回一个整数，表示服务器回应的 HTTP 状态码。一般来说，如果通信成功的话，这个状态码是200；如果服务器没有返回状态码，那么这个属性默认是200。请求发出之前，该属性为0。该属性只读。
+        // 200, OK，访问正常
+        // 301, Moved Permanently，永久移动
+        // 302, Moved temporarily，暂时移动
+        // 304, Not Modified，未修改
+        // 307, Temporary Redirect，暂时重定向
+        // 401, Unauthorized，未授权
+        // 403, Forbidden，禁止访问
+        // 404, Not Found，未发现指定网址
+        // 500, Internal Server Error，服务器发生错误
+        if (xhr.status === 200) {
+          console.log(xhr.responseText);
+          console.log(xhr.responseType);//为空代表返回文本数据
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    }
+    // 各个事件的监听函数
+    xhr.onerror = function (e) {
+      console.error(xht.statusText);
+    }
+    xhr.onload = function () {
+      var responseText = xhr.responseText;
+      console.log(responseText);
+      // process the response.
+    };
+
+    xhr.onabort = function () {
+      console.log('The request was aborted');
+    };
+
+    xhr.onprogress = function (event) {
+      console.log(event.loaded);
+      console.log(event.total);
+    };
+    // 指定timeout为10s
+    xhr.timeout = 10 * 1000
+    // 发送请求,如果是POST请求，就要指定数据体
+    xhr.send(null);
+  </script>
+</body>
+
+</html>
