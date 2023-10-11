@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  
+
   <!-- 具体来说，AJAX 包括以下几个步骤。
 
 1创建 XMLHttpRequest 实例
@@ -25,6 +25,14 @@
     // 第三个参数代表是异步的
     // 新建链接
     xhr.open('GET', 'http://127.0.0.1:3000/', true)
+    // 接收5个参数 
+    // method：表示 HTTP 动词方法，比如GET、POST、PUT、DELETE、HEAD等。
+    // url: 表示请求发送目标 URL。
+    // async: 布尔值，表示请求是否为异步，默认为true。如果设为false，则send()方法只有等到收到服务器返回了结果，才会进行下一步操作。该参数可选。由于同步 AJAX 请求会造成浏览器失去响应，许多浏览器已经禁止在主线程使用，只允许 Worker 里面使用。所以，这个参数轻易不应该设为false。
+    // user：表示用于认证的用户名，默认为空字符串。该参数可选。
+    // password：表示用于认证的密码，默认为空字符串。该参数可选。
+
+
     // 监听
     // XMLHttpRequest.onreadystatechange属性指向一个监听函数。readystatechange事件发生时（实例的readyState属性变化），就会执行这个属性。
     xhr.onreadystatechange = function () {
@@ -54,6 +62,21 @@
         }
       }
     }
+    // 表单对象
+    var formData = new FormData();
+    formData.append('name', 'hawkins');
+    formData.append('sex', 'male')
+    var xhr1 = new XMLHttpRequest();
+    // 自定义标头,如 Content-Type、User-Agent、Authorization 
+    xhr1.setRequestHeader('Content-Type', 'application/json')//指定数据类型
+    xhr1.setRequestHeader('Content-length', JSON.stringify(formData).length)
+    xhr1.open('post', './register', true)
+    setTimeout(function () {
+      if (xhr) {
+        xhr.abort()//种植已经发送的http请求
+        xhr = null
+      }
+    })
     // 各个事件的监听函数
     xhr.onerror = function (e) {
       console.error(xht.statusText);
@@ -75,7 +98,11 @@
     // 指定timeout为10s
     xhr.timeout = 10 * 1000
     // 发送请求,如果是POST请求，就要指定数据体
-    xhr.send(null);
+    xhr.send(null);//get请求send没有参数
+
+    xhr1.open('post', './register')
+    xhr.responseType = 'json'//希望服务器返回指定类型
+    xhr1.send(JSON.stringify(data))
   </script>
 </body>
 

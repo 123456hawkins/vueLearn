@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="connect()">建立请求</button>
+  <button onclick="sendmsg()">发送信息</button>
+  <div id="output"></div>
+  <script>
+    let connection;
+    function connect () {
+      connection = new WebSocket('ws://127.0.0.1:3001', 'echo-protocol');  // 指定相同的协议
+      connection.onopen = (event) => {
+        document.getElementById('output').innerHTML += '<p>WebSocket Connection Opened</p>';
+      }
+
+      connection.onmessage = (event) => {
+        document.getElementById('output').innerHTML += '<p>' + event.data + '</p>';
+      }
+
+      connection.onclose = (event) => {
+        document.getElementById('output').innerHTML += '<p>' + 'connection closed' + '</p>';
+      }
+    }
+
+    function sendmsg () {
+      const message = prompt('enter msg to send');
+      if (connection && connection.readyState == WebSocket.OPEN) {
+        connection.send(message);
+      } else {
+        alert('websocket is not open');
+      }
+    }
+  </script>
+</body>
+
+
+</html>
