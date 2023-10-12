@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- window.history属性指向 History 对象，它表示当前窗口的浏览历史。 -->
+  <script>
+    // 获取当前窗口访问过的网址
+    let hl = window.history.length
+    history.back()//回退历史记录
+    history.forward()//移动到下一个网址
+    history.go(-1)//等同于回退历史记录
+
+
+    var stateObj = { foo: 'bar' }//一个与添加的记录相关联的状态对象，主要用于popstate事件。该事件触发时，该对象会传入回调函数。也就是说，浏览器会将这个对象序列化以后保留在本地，重新载入这个页面的时候，可以拿到这个对象。如果不需要这个对象，此处可以填null。
+    history.pushState(stateObj, 'baidu', 'www.baidu.com')
+    history.replaceState({ page: '2' }, 'google', 'www.google.com')
+
+    // 当文档的浏览历史发生变换时，会触发popstate事件
+    window.onpopstate = function (event) {
+      console.log('location', document.location);
+      console.log('state:', JSON.stringify(event.state));
+    }
+  </script>
+</body>
+
+</html>
