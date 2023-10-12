@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- sessionStorage保存的数据用于浏览器的一次会话（session），当会话结束（通常是窗口关闭），
+    数据被清空；localStorage保存的数据长期存在，下一次访问该网站的时候，网页可以直接读取以前保存的数据。除了保存期限的长短不同，这两个对象的其他方面都一致。 -->
+
+  <!-- 保存的数据都以“键值对”的形式存在。也就是说，每一项数据都有一个键名和对应的值。所有的数据都是以文本格式保存。 -->
+  <script>
+
+    window.localStorage.setItem('CAONIMA', 'AWEFAW')
+    window.localStorage.setItem('CAONIMA1', 'AWEFAW2')
+    window.localStorage.setItem('CAONIMA2', 'AWEFAW3')
+    window.sessionStorage.setItem('fawefa', 'awefaw')
+    // 获取
+    var s1 = window.localStorage.getItem('CAONIMA')
+    // 删除
+    window.localStorage.removeItem('CAONIMA')
+    // 清除所有
+    // window.localStorage.clear()
+    console.log(s1);
+    // 遍历所有storage
+    for (let i = 0; i < window.localStorage.length; i++) {
+      console.log(localStorage.key(i));
+    }
+    // 监听storage数据发生变换
+    window.addEventListener('storage', () => {
+      console.log('有人操作了storage');
+    })
+  </script>
+</body>
+
+</html>
