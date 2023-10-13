@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    var locatObj = {}
+    locatObj.href = document.location.href
+    locatObj.protocol = document.location.protocol
+    locatObj.host = document.location.host
+    locatObj.hostname = document.location.hostname
+    locatObj.port = document.location.port
+    locatObj.pathName = document.location.pathname
+    locatObj.search = document.location.search
+    locatObj.hash = document.location.hash
+    locatObj.username = document.location.username
+    locatObj.password = document.location.password
+    locatObj.origin = document.location.origin
+    // 只有origin是可读的，其他均匀可写
+    console.log(locatObj);
+    // document.location.assign('http://www.baidu.com')//跳转到新的网址
+    // document.location.replace('http://www.baidu.com')//和assign功能类似，但replace会在history中删除当前网址记录
+    // document.location.reload()//重新加载网页
+
+    // 网页的 URL 只能包含合法的字符。合法字符分成两类。
+
+    // URL 元字符：分号（;），逗号（,），斜杠（/），问号（?），冒号（:），at（@），&，等号（=），加号（+），美元符号（$），井号（#）
+    // 语义字符：a-z，A-Z，0-9，连词号（-），下划线（_），点（.），感叹号（!），波浪线（~），星号（*），单引号（'），圆括号（()）
+
+    // 中文不是合法字符,所以需要编解码
+    var s1 = encodeURI('http://www.baidu.com/q=踩踩踩')//将元字符和语义字符以外的字符都转码
+    console.log(s1);
+    var s2 = encodeURIComponent('春节')//只能将参数部分转码
+    // 解码
+    console.log(decodeURI(s1));
+    console.log(decodeURIComponent(s2));
+
+
+    // 浏览器原生提供URL()接口，它是一个构造函数，用来构造、解析和编码 URL。
+    var url1 = new URL('https://www.baidu.com')//如果不是合法的url会报错
+
+    var url1 = new URL('index.html', 'http://example.com');
+    url1.href
+    // "http://example.com/index.html"
+
+    var url2 = new URL('page2.html', 'http://example.com/page1.html');
+    url2.href
+    // "http://example.com/page2.html"
+
+    var url3 = new URL('..', 'http://example.com/a/b.html')
+    url3.href
+    // "http://example.com/"
+
+    // url的实例属性和location的基本一致
+
+    var params = new URLSearchParams('?foo:1')
+    params.get('foo')//1
+    params.get('shit')//null
+  </script>
+</body>
+
+</html>
