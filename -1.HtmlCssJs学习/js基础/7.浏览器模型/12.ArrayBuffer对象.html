@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 上传文件 -->
+  <input type="file" accept="image/*" multiple onchange="fileInfo(this.files)">
+
+  <!-- 下载文件 -->
+  <button onclick="download()">下载文件</button>
+  <script>
+    // ArrayBuffer 对象表示一段二进制数据，用来模拟内存里面的数据。通过这个对象，JavaScript 可以读写二进制数据。这个对象可以看作内存数据的表达
+    var buffer = new ArrayBuffer(8)
+    var b2 = buffer.slice(0)//复制从0到最后一位元素
+    console.log(buffer);
+
+    // Blob对象
+    // Blob 对象表示一个二进制文件的数据内容，比如一个图片文件的内容就可以通过 Blob 对象读写。它通常用来读写文件，
+    // 它的名字是 Binary Large Object （二进制大型对象）的缩写。它与 ArrayBuffer 的区别在于，它用于操作二进制文件，而 ArrayBuffer 用于操作内存。
+
+    // Blob构造函数接受两个参数。第一个参数是数组，成员是字符串或二进制对象，表示新生成的Blob实例对象的内容；第二个参数是可选的，是一个配置对象，
+    // 目前只有一个属性type，它的值是一个字符串，表示数据的 MIME 类型，默认是空字符串。
+    var htmlFragment = ['<a id="a"><b id="b">hey!</b></a>'];
+    var myBlob = new Blob(htmlFragment, { type: 'text/html' })
+    // 自带两个属性
+    console.log(myBlob.size);
+    console.log(myBlob.type);
+
+    // slice返回一个Blob实例
+    const copyBlob = myBlob.slice(0, 20, "text/html")
+    console.log(copyBlob);
+
+
+    function fileInfo (files) {
+      for (let i = 0; i < files.length; i++) {
+        var f = files[i];
+        console.log(f.name, f.size, f.type, f.lastModifieDate);
+      }
+    }
+    function download () {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:3000')
+      xhr.responseType = 'blob'
+      xhr.onload = function () {
+        console.log(xhr.response);
+      }
+      xhr.send(null)
+
+
+    }
+  </script>
+</body>
+
+</html>
