@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <input id="fileItem" type="file"> -->
+  <!-- <input type="file" onchange="onChange(event)"> -->
+
+  <input type="file" accept="image/*" onchange="previewFile()">
+  <img src="" height="200">
+  <script>
+    // File 对象代表一个文件，用来读写文件信息。它继承了 Blob 对象，或者说是一种特殊的 Blob 对象，所有可以使用 Blob 对象的场合都可以使用它
+    var file = document.getElementById('fileItem').files[0];
+    console.log(file instanceof File);
+
+    // File()构造函数接受三个参数。
+
+    // array：一个数组，成员可以是二进制对象或字符串，表示文件的内容。
+    // name：字符串，表示文件名或文件路径。
+    // options：配置对象，设置实例的属性。该参数可选。
+    // 第三个参数配置对象，可以设置两个属性。
+
+    // type：字符串，表示实例对象的 MIME 类型，默认值为空字符串。
+    // lastModified：时间戳，表示上次修改的时间，默认为Date.now()
+    var file = new File(['foo'], 'foo.txt', { type: 'text/plain' })
+    console.log(file);
+
+
+    // FileReader对象
+    var reader = new FileReader()
+    // FileReader有以下的实例属性
+    // FileReader.error：读取文件时产生的错误对象
+    // FileReader.readyState：整数，表示读取文件时的当前状态。一共有三种可能的状态，0表示尚未加载任何数据，1表示数据正在加载，2表示加载完成。
+    // FileReader.result：读取完成后的文件内容，有可能是字符串，也可能是一个 ArrayBuffer 实例。
+    // FileReader.onabort：abort事件（用户终止读取操作）的监听函数。
+    // FileReader.onerror：error事件（读取错误）的监听函数。
+    // FileReader.onload：load事件（读取操作完成）的监听函数，通常在这个函数里面使用result属性，拿到文件内容。
+    // FileReader.onloadstart：loadstart事件（读取操作开始）的监听函数。
+    // FileReader.onloadend：loadend事件（读取操作结束）的监听函数。
+    // FileReader.onprogress：progress事件（读取操作进行中）的监听函数。
+
+    // 每当进空间发生变化就尝试读取第一个文件，如果读取成功就打印文件内容
+    function onChange (event) {
+      var file1 = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        console.log(event.target.result)
+      };
+
+      reader.readAsText(file1);
+    }
+
+    function previewFile () {
+      var preview1 = document.querySelector('img');
+      var file3 = document.querySelector('input[type=file]').files[0];
+      var reader2 = new FileReader();
+
+      reader2.addEventListener('load', function () {
+        preview1.src = reader2.result;
+      }, false);
+
+      if (file3) {
+        reader2.readAsDataURL(file3);
+      }
+    }
+  </script>
+</body>
+
+</html>
