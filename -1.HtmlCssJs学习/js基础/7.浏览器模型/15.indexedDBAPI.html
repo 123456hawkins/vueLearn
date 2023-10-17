@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // IndexedDB 就是浏览器提供的本地数据库，它可以被网页脚本创建和操作。IndexedDB 允许储存大量数据，提供查找接口，还能建立索引。
+    // 这些都是 LocalStorage 所不具备的。就数据库类型而言，IndexedDB 不属于关系型数据库（不支持 SQL 查询语句），更接近 NoSQL 数据库。
+
+    //     （1）键值对储存。 IndexedDB 内部采用对象仓库（object store）存放数据。所有类型的数据都可以直接存入，包括 JavaScript 对象。对象仓库中，数据以“键值对”的形式保存，每一个数据记录都有对应的主键，主键是独一无二的，不能有重复，否则会抛出一个错误。
+
+    // （2）异步。 IndexedDB 操作时不会锁死浏览器，用户依然可以进行其他操作，这与 LocalStorage 形成对比，后者的操作是同步的。异步设计是为了防止大量数据的读写，拖慢网页的表现。
+
+    // （3）支持事务。 IndexedDB 支持事务（transaction），这意味着一系列操作步骤之中，只要有一步失败，整个事务就都取消，数据库回滚到事务发生之前的状态，不存在只改写一部分数据的情况。
+
+    // （4）同源限制。 IndexedDB 受到同源限制，每一个数据库对应创建它的域名。网页只能访问自身域名下的数据库，而不能访问跨域的数据库。
+
+    // （5）储存空间大。 IndexedDB 的储存空间比 LocalStorage 大得多，一般来说不少于 250MB，甚至没有上限。
+
+    // （6）支持二进制储存。 IndexedDB 不仅可以储存字符串，还可以储存二进制数据（ArrayBuffer 对象和 Blob 对象）。
+
+
+    // 数据格式 只有主键和数据体两部分。主键用来建立默认的索引 { id: 1, text: 'foo' }
+
+
+    // 打开数据库
+    var request = window.indexedDB.open('db1', 1)
+    // ，第一个参数是字符串，表示数据库的名字。如果指定的数据库不存在，就会新建数据库。第二个参数是整数，表示数据库的版本。如果省略，打开已有数据库时，默认为当前版本；新建数据库时，默认为1。
+    console.log(request);
+    var db
+    request.onerror = function (event) {
+      console.log('打开数据库报错');
+    }
+    // 异步
+    request.onsuccess = function (event) {
+      db = request.result
+      console.log('打开数据库成功');
+      console.log(db);
+
+    }
+    // 如果指定版本号大于数据库的实际版本号，就会发生数据库升级
+    request.onupgradeneeded = function (event) {
+      db = event.target.result
+      var objectStore;
+      if (!db.objectStoreNames.contains('person')) {
+        // 创建表单，设置id为主键,自增
+        objectStore = db.createObjectStore('person', { keyPath: 'id', autoIncrement: true });
+        // 新建索引,索引名称，索引属性，配置对象
+        objectStore.createIndex('name', 'name', { unique: false })
+        console.log(objectStore);
+      }
+    }
+    var request1
+    function add () {
+      // 通过事务完成
+      request1 = db.transaction(['person', 'readwrite']).objectStore('person').add({ id: 1, name: 'zhangsan', email: '2398430768@qq.com' });
+
+    }
+    request1.onsuccess = function (event) {
+      console.log('数据写入成功');
+    }
+    request1.onerror = function (event) {
+      console.log('数据写入失败');
+    }
+
+
+
+    var DBDeleteRequest = window.indexedDB.deleteDatabase('db1');
+
+    DBDeleteRequest.onerror = function (event) {
+      console.log('deleteError');
+    };
+
+    DBDeleteRequest.onsuccess = function (event) {
+      console.log('deleteSuccess');
+    };
+  </script>
+</body>
+
+</html>
