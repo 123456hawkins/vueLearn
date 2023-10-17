@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 传统var存在变量提升的问题，在生命前就可以访问 -->
+  <script>
+    console.log(x);//undefined
+    var x = 1
+
+    // console.log(y);//报错
+    let y = 1//在let声明变量前该变量都是不可用的，在语法上称为‘暂时性死区’，只用用到该变量就会报错
+
+    // var在作用域外也是可见的
+    if (true) {
+      var a = 10;
+      let b = 2
+    }
+    console.log(a);//10
+    // console.log(b);//报错
+
+    // var支持重复声明，let不行
+    // var声明的变量会变成全局对象的属性(window可以访问到),let不行
+    console.log(window.a);
+    // var定义变量尽量避免
+
+    // 块级作用域
+    function f1 () {
+      let n = 5;
+      if (true) {
+        let n = 10;//内部的块不会影响到外部的块
+      }
+      console.log(n); // 5
+    }
+  </script>
+
+</body>
+
+</html>
