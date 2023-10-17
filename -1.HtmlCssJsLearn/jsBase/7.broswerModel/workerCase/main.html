@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>multiple caculate case</h1>
+  <h2>寻找100000的素数</h2>
+  <button onclick="start()">开始计算</button>
+  <script>
+    function start () {
+      // 定义的worker数量
+      const numWorkers = 1;
+      const workers = []
+      let resultArr = []
+
+      const startTime = performance.now()
+      // 创建多个worker
+      for (let i = 0; i < numWorkers; i++) {
+        const worker = new Worker('worker.js')
+        workers.push(worker);
+
+        // 主线程来接受worker的消息
+        worker.onmessage = function (event) {
+          const result = event.data;
+          console.log('Worker' + i + 'found' + result.primeCount + 'prime numbers');
+          resultArr += result.arr
+          if (i == numWorkers - 1) {
+            const endTime = performance.now()
+            const totalTime = endTime - startTime
+            console.log('总共耗时：', totalTime.toFixed(2) + 'ms');
+            console.log(resultArr);
+          }
+        }
+      }
+
+      // 分发计算任务
+      const range = 100000000;
+      for (let i = 0; i < numWorkers; i++) {
+        const start = i * (range / numWorkers);
+        const end = (i + 1) * (range / numWorkers);
+        workers[i].postMessage({ start, end })
+      }
+    }
+
+  </script>
+</body>
+
+</html>
