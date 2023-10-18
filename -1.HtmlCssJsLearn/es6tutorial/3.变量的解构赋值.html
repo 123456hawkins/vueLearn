@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--  -->
+
+  <script>
+    // 以前，为变量赋值，只能直接指定值
+    let a = 1;
+    let b = 2;
+    let c = 3;
+    // 现在可以写成这样
+    let [a1, b1, c1] = [1, 2, 3]
+    let [foo, [[bar], baz]] = [1, [[2], 3]];
+    foo // 1
+    bar // 2
+    baz // 3
+
+    let [, , third] = ["foo", "bar", "baz"];
+    third // "baz"
+
+    let [x, , y] = [1, 2, 3];
+    x // 1
+    y // 3
+
+    let [head, ...tail] = [1, 2, 3, 4]
+    head//1
+    tail//[2,3,4]
+
+    // 解构赋值运行默认值
+    let [f1 = true] = []
+    foo//true
+    let [q, t = 1] = [2]
+    q//2
+    // ES6 内部使用严格相等运算符（===），判断一个位置是否有值
+    function f () {
+      console.log('aaa');
+    }
+
+    let [b = f()] = [1];
+    // 上面表达式等价于
+    let b;
+    if ([1][0] === undefined) {
+      x = f();
+    } else {
+      x = [1][0];
+    }
+
+    // 对象的解构赋值
+    let { foo1, bar1 } = { foo1: 'aaa', bar1: 'vvv' }
+    foo1//aaa
+    bar1//vvv
+    // 对象的解构赋值和变量不同，对象必须要名称对应才能解构赋值
+    let { baz1 } = { foo2: 'aaa', bar2: 'vvv' }
+    baz1//undefined
+
+    const { log } = console
+    log('caonima')//caonima
+
+    let obj = {
+      p: ['hello', { y: 'world' }]
+    }
+    x//hello
+    y//world
+
+    // 错误的写法
+    // JavaScript 引擎会将{x}理解成一个代码块，从而发生语法错误。只有不将大括号写在行首，避免 JavaScript 将其解释为代码块，才能解决这个问题。
+    let x;
+    { x } = { x: 1 };
+
+    // 正确写法
+    let x;
+    ({ x } = { x: 1 })
+
+    // 字符串的解构赋值
+    const [a, b, c, d, e] = 'hello';
+    a // "h"
+    b // "e"
+    c // "l"
+    d // "l"
+    e // "o"
+
+
+    // 解构赋值的用处
+    // 1.交换变量的值
+    let x = 1;
+    let y = 2;
+    //交换变量值
+    [x, y] = [y, x]
+
+    // 2.函数返回多个值
+    function example () {
+      return [1, 2, 3];
+    }
+    let [a3, b3, c3] = example()
+
+    // 3.函数参数的定义
+    function f ({ x, y, z }) {
+
+    }
+    f({ z: 1, x: 2, y: 3 })//可以不用按照顺序
+
+    // 4.提取json数据
+    let jsonData = {
+      id: 42,
+      status: "OK",
+      data: [867, 5309]
+    };
+    let { id, status, number } = jsonData
+    console.log(id, status, number);// 42, "OK", [867, 5309]
+
+    // 6.遍历map解构
+    const map = new Map()
+    map.set('first', 'hello')
+    map.set('fuck', 'you')
+    for (let [key, value] of map) {
+      console.log(key + 'is' + value);
+    }
+  </script>
+</body>
+
+</html>
