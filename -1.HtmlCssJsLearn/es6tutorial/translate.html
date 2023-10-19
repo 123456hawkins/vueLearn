@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ASS File Translation</title>
+</head>
+
+<body>
+  <h1>ASS File Translation</h1>
+  <form>
+    <label for="assFile">Select the ASS file:</label>
+    <input type="file" id="assFile" accept=".ass" required>
+    <br>
+    <label for="txtFile">Select the TXT file for translation:</label>
+    <input type="file" id="txtFile" accept=".txt" required>
+    <br>
+    <button type="button" id="translateButton">Translate</button>
+  </form>
+  <h2>Translated ASS File:</h2>
+  <pre id="translatedAss"></pre>
+
+
+  <script>
+    document.getElementById('translateButton').addEventListener('click', async () => {
+      const assFile = document.getElementById('assFile').files[0];
+      const txtFile = document.getElementById('txtFile').files[0];
+
+      if (!assFile || !txtFile) {
+        alert('Please select both an ASS file and a TXT file for translation.');
+        return;
+      }
+
+      const assContent = await readFileAsync(assFile);
+      const txtContent = (await readFileAsync(txtFile)).split('\n').map(line => line.trim());
+      console.log(txtContent);
+      const translatedAssContent = translateAss(assContent, txtContent);
+      console.log(translatedAssContent);
+      document.getElementById('translatedAss').textContent = translatedAssContent;
+    });
+
+    function readFileAsync (file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => resolve(event.target.result);
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+
+    // function translateAss (assContent, txtContent) {
+    //   const assLines = assContent.split('\n');
+    //   const translatedAssLines = [];
+    //   let isDialogueBlock = false;
+
+    //   for (const line of assLines) {
+    //     if (line.trim() === 'Format: Layer, Start, End, Style, Actor, MarginL, MarginR, MarginV, Effect, Text') {
+    //       isDialogueBlock = true;
+    //       translatedAssLines.push(line); // 写入事件格式行
+    //     } else if (isDialogueBlock && line.trim().startsWith('Dialogue: ')) {
+    //       const parts = line.split(':');
+    //       if (parts.length >= 11) {
+    //         const originalText = parts[10].trim();
+    //         const translatedText = txtContent.shift() || ''; // 获取下一个翻译行，如果没有则使用空字符串
+    //         parts[10] = ` ${originalText}\\N${translatedText}`;
+    //         translatedAssLines.push(parts.join(':'));
+    //       } else {
+    //         translatedAssLines.push(line); // 行格式不匹配，直接写入
+    //       }
+    //     } else {
+    //       translatedAssLines.push(line);
+    //     }
+    //   }
+
+    //   return translatedAssLines.join('\n');
+    // }
+
+    function translateAss (assContent, txtContent) {
+      const assLines = assContent.split('\n');
+      console.log(assLines);
+      const translatedAssLines = [];
+
+      for (let i = 0; i < 13; i++) {
+        translatedAssLines.push(assLines[i])
+      }
+
+      for (let i = 13, j = 0; i < assLines.length, j < txtContent.length; i++, j++) {
+        assText = assLines[i];
+        txtText = txtContent[j]
+        translatedAssLines.push(` ${assText}\\N${txtText}`)
+
+      }
+
+      return translatedAssLines.join('\n')
+    }
+  </script>
+</body>
+
+</html>

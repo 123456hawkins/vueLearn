@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas width="512" height="512"></canvas>
+  <script>
+
+    // // 检查是否支持webgpu
+    // if (!navigator.gpu) {
+    //   throw new Error('Your brower do not support webgpu')
+    // } else {
+    //   console.log(navigator.gpu);
+    // }
+    // // 应用初始化 WebGPU 的第一步是请求 GPUAdapter。您可以将适配器视为 WebGPU 代表设备中的特定 GPU 硬件。
+    // let adapter
+    // async function getAdapter () {
+    //   adapter = await navigator.gpu.requestAdapter();//会返回promise对象
+    // }
+    // if (!adapter) {
+    //   throw new Error("No GPUAdapter found")
+    // } else {
+    //   console.log(adapter);
+    // }
+
+    // let device
+    // async function getDevice () {
+    //   device = await adapter.requestDevice()
+    // }
+    // console.log(device);
+
+    async function init () {
+      if (!navigator.gpu) {
+        throw Error("WebGPU not supported.");
+      }
+
+      const adapter = await navigator.gpu.requestAdapter();
+      if (!adapter) {
+        throw Error("Couldn't request WebGPU adapter.");
+      }
+
+      const device = await adapter.requestDevice();
+
+      console.log(device);
+
+      return { adapter, device }
+      //...
+    }
+    init().then(({ adapter, device }) => {
+      console.log("Adapter:", adapter);
+      console.log("Device:", device);
+      console.log(adapter.requestAdapterInfo());
+      // 在这里可以使用 adapter 和 device 进行操作
+
+      // 配置画布
+      const canvas = document.querySelector("canvas")
+      const context = canvas.getContext("webgpu")
+      const canvasFormat = navigator.gpu.getPreferredCanvasFormat();
+      context.configure({
+        device: device,
+        format: canvasFormat
+      })
+      console.log(context);
+
+      // 清空画布
+      const encoder = device.createCommandEncoder()
+
+
+    })
+      .catch(error => {
+        console.error("Initialization error:", error);
+      });
+
+  </script>
+</body>
+
+</html>
