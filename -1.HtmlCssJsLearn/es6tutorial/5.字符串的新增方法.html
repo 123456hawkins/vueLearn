@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // ES6 还为原生的 String 对象，提供了一个raw()方法。该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。
+    console.log(String.raw`Hi\n${2 + 3}`);//实际返回Hi\\n5!,但显示转义后的Hi\n5!
+
+    let s = '黄理'
+    console.log(s.codePointAt(0));
+    console.log(s.codePointAt(1));
+    console.log(s.codePointAt(2));
+
+
+    // includes()：返回布尔值，表示是否找到了参数字符串。
+    // startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+    // endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。
+    let a = 'hello'
+    console.log(a.includes('o'));
+    console.log(a.startsWith('h'));
+    console.log(a.endsWith('o'));
+
+    console.log('as'.repeat(3));
+
+    // 如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。
+    console.log('x'.padEnd(4, 'ab'));
+    console.log('x'.padStart(4, 'acac'));
+
+    // trim用于消除字体空格,trim()一致，trimStart()消除字符串头部的空格，trimEnd()消除尾部的空格。
+    const x = '   abc   '
+    console.log(x.trimStart());
+    console.log(x.trimEnd());
+
+    // replace()用于替换到第一个匹配的字符,replace替换所有
+    console.log('aabbcc'.replace('a', '_'));
+    console.log('aabbcc'.replaceAll('a', '_'));
+
+    // at返回参数所在位置的字符
+    const str = 'hello'
+    console.log(str.at(1));
+
+  </script>
+</body>
+
+</html>
