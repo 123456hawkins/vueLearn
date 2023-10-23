@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 指数运算符
+    console.log(2 ** 2);
+    console.log(2 ** 3 ** 2);//右结合，先从右边开始计算
+    let b = 2
+    console.log(b **= 2);//赋值运算符
+
+    // 链判断运算符
+    // 编程实务中，如果读取对象内部的某个属性，往往需要判断一下，属性的上层对象是否存在。
+    const message = { body: { user: { secondName: 'hello' } } }
+    const firstName = message?.body?.user?.firstName || 'default'//?.就是连判断运算符
+
+    console.log(firstName);
+
+    a?.b
+    // 等同于
+    a == null ? undefined : a.b
+
+    a?.[x]
+    // 等同于
+    a == null ? undefined : a[x]
+
+    a?.b()
+    // 等同于
+    a == null ? undefined : a.b()
+
+    a?.()
+    // 等同于
+    a == null ? undefined : a()
+
+    // 如果某个属性的值是null或undefined，有时候需要为它们指定默认值。
+    // 常见做法
+    const headerText = response.settings.headerText || 'Hello, world!';
+    // 开发者的原意是，只要属性的值为null或undefined，默认值就会生效，但是属性的值如果为空字符串或false或0，默认值也会生效。
+    // 为了避免这种情况，ES2020 引入了一个新的 Null 判断运算符??。它的行为类似||，但是只有运算符左侧的值为null或undefined时，才会返回右侧的值
+    const headerText2 = response2.settings.headerText ?? 'Hello, world!';
+    // 这个运算符很适合判断函数参数是否赋值
+    function exampleFunc (props) {
+      const enable = props.enable ?? true
+    }
+    // ES2021 引入了三个新的逻辑赋值运算符（logical assignment operators），将逻辑运算符与赋值运算符进行结合。
+    // 或赋值运算符
+    // 或赋值运算符
+    x ||= y
+    // 等同于
+    x || (x = y)
+
+    // 与赋值运算符
+    x &&= y
+    // 等同于
+    x && (x = y)
+
+    // Null 赋值运算符
+    x ??= y
+    // 等同于
+    x ?? (x = y)
+
+    // 它们的一个用途是，为变量或属性设置默认值。
+    user.id||=1//user.id是否存在,否就设为1
+
+  </script>
+</body>
+
+</html>
