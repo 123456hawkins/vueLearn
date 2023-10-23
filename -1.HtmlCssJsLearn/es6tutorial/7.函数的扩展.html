@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // es6之前不允许参数赋值从而无法实现指定默认值
+    // es6可以指定参数默认值
+    // 设置默认值为world
+    function log (x, y = 'world') {
+      console.log(x, y);
+    }
+    log('hello', 'hello');//hello hello
+    log('world');//
+
+    // 参数变量是默认声明的，所以不能用let或const再次声明。
+    // function foo (x = 5) {
+    //   let x = 1; // error
+    //   const x = 2; // error
+    // }
+
+    // 配合解构赋值
+    function foo ({ x, y = 5 }) {
+      console.log(x, y);
+    }
+    foo({ x: 1 })
+
+    // 另外一个例子
+    // 第二个参数设置默认值是{}，所以传不传都不会报错
+    function fetch (url, { body = '', method = 'GET', headers = {} } = {}) {
+      console.log(method);
+    }
+    fetch('http://example.com')
+
+    // 写法一
+    function m1 ({ x = 0, y = 0 } = {}) {
+      return [x, y];
+    }
+
+    // 写法二
+    function m2 ({ x, y } = { x: 0, y: 0 }) {
+      return [x, y];
+    }
+
+    // 函数没有参数的情况
+    m1() // [0, 0]
+    m2() // [0, 0]
+
+    // x 和 y 都有值的情况
+    m1({ x: 3, y: 8 }) // [3, 8]
+    m2({ x: 3, y: 8 }) // [3, 8]
+
+    // x 有值，y 无值的情况
+    m1({ x: 3 }) // [3, 0]
+    m2({ x: 3 }) // [3, undefined]
+
+    // x 和 y 都无值的情况
+    m1({}) // [0, 0];
+    m2({}) // [undefined, undefined]
+
+    m1({ z: 3 }) // [0, 0]
+    m2({ z: 3 }) // [undefined, undefined]
+    // 综上所述，这两个函数在没有传入参数时都返回相同的结果 [0, 0]。但在传入参数的情况下，它们的行为略有不同，m1 更加灵活，因为它允许传入一个空对象作为参数，而 m2 则始终会使用默认对象 { x: 0, y: 0 }，即使传入的参数是空。
+
+    // 函数的length属性
+    // 指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。
+    console.log((function (a) { }).length);//1
+    console.log((function (a, b, c = 5) { }).length);//2
+
+
+    // 作用域
+    // 一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域
+    var x = 1;
+
+    function f (x, y = x) {
+      console.log(y);
+    }
+
+    f(2) // 2
+
+    // 利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。
+    function throwError () {
+      throw new Error('MISSING PARAMETER')
+    }
+    // 参数设为undefined表示可以省略
+    function test (mustprovide = throwError(), cannotporvide = undefined) {
+      console.log(mustprovide, cannotporvide);
+    }
+    test(2, 3)
+
+    // rest参数
+    // ES6 引入 rest 参数（形式为...变量名），用于获取函数的多余参数，这样就不需要使用arguments对象了。rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+    function add (...values) {//
+      let sum = 0;//此时values是一个数组
+      for (let val of values) {
+        sum += val;
+      }
+      return sum
+    }
+    console.log(add(1, 2, 3, 4, 5));
+
+    // 旧的写法
+    function sortNumbers () {
+      return Array.from(arguments).sort();
+    }
+    console.log(sortNumbers(7, 6, 5, 4, 3, 2, 1));
+    // 新的写法
+    const sortNumbers2 = (...numbers) => { return numbers.sort() }//注意number.sort()外面如果要加花括号必须要加上return,去掉花括号就不用
+    console.log(sortNumbers2(7, 6, 5, 4, 3, 2, 1));
+    // 函数的length属性，不包括 rest 参数。
+    console.log((function (...a) { }).length);// 0
+    console.log((function (a, ...b) { }).length);// 1
+
+
+    // 严格模式
+    function dosome (a, b) {
+      'use strict'
+      console.log(a + b);
+      // 规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错
+    }
+
+    // 函数的name属性，返回该函数的函数名。
+
+    function name () {
+
+    }
+    console.log(name.name);
+
+
+    // 箭头函数
+    var f = () => 5
+    // 等同于
+    var f = function () { return 5 }
+
+    var sum = () => num1 + num2
+    // 等同于
+    var sum = () => {
+      // return sum1 + sum2
+    }
+
+    // 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号，否则会报错。
+    // let getTem=id=>{id:id,name:'temp'}//报错
+    let getTem = id => ({ id: id, name: 'temp' })//不报错
+
+
+    // 如果箭头函数不需要返回值
+    function notreturn () {
+      console.log('没有返回值');
+    }
+    let fun = () => void notreturn();
+    fun()
+    // 结合变量解构
+    const full = ({ first, second }) => { return first + second }
+    console.log(full({ first: 1, second: 2 }));
+
+    console.log([1, 2, 3].map(x => x * x));
+
+    // 使用注意点
+    // 1.箭头函数没有自己的this
+    // 2.不可以当作构造函数
+    // 3.不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+    // 4.不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+    function Timer () {
+      this.s1 = 0;
+      this.s2 = 0;
+      // 箭头函数
+      setInterval(() => this.s1++, 1000);
+      // 普通函数
+      setInterval(function () {
+        this.s2++;
+      }, 1000);
+    }
+
+    var timer = new Timer();
+
+    setTimeout(() => console.log('s1: ', timer.s1), 3100);
+    setTimeout(() => console.log('s2: ', timer.s2), 3100);
+    // s1: 3
+    // s2: 0
+    // ES6
+    function foo () {
+      setTimeout(() => {
+        console.log('id:', this.id);
+      }, 100);
+    }
+
+    // ES5
+    function foo () {
+      var _this = this;
+
+      setTimeout(function () {
+        console.log('id:', _this.id);
+      }, 100);
+    }
+
+    function foo () {
+      setTimeout(() => {
+        console.log('args:', arguments);
+      }, 100);
+    }
+
+    foo(2, 4, 6, 8)
+    // args: [2, 4, 6, 8]
+
+
+    // 不适合场所
+    const cat = {
+      lives: 9,
+      jump: () => {
+        this.lives--;
+      }
+    }
+
+    // 例子
+    globalThis.s = 21;
+
+    const obj = {
+      s: 42,
+      m: () => console.log(this.s)
+    };
+
+    obj.m() // 21
+    // 1.所以对象属性要用传统写法，不要使用箭头函数定义
+    // var button = document.getElementById('press');
+    // button.addEventListener('click', () => {
+    //   // this.classList.toggle('on');//此时this指向全局对象window，报错
+    //   event.classList.toogle('on')//正确写法
+    // });
+
+
+    // 署管道机制（pipeline）的例子，即前一个函数的输出是后一个函数的输入。
+    const pipeline = (...funcs) =>
+      val => funcs.reduce((a, b) => b(a), val);
+
+    const plus1 = a => a + 1;
+    const mult2 = a => a * 2;
+    const addThenMult = pipeline(plus1, mult2);
+
+    addThenMult(5)
+    // 12
+
+    // 尾调用优化
+    // 某个函数的最后一步是调用另一个函数
+    function f (x) {
+      return g(x)
+    }
+
+    // 函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，
+    // 还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。
+    // 尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了
+
+    // 尾调用优化例子
+    function f () {
+      let m = 1;
+      let n = 2;
+      return g(m + n);
+    }
+    f();
+
+    // 等同于
+    function f () {
+      // return g(3);
+    }
+    f();
+
+    // 等同于
+    // g(3);
+    // 如果g不是尾调用，函数f内部就需要保存表里m和n，g的调用位置等信息，如果是尾调用，函数f就结束了，就可以删除f调用帧节省内存
+    // 注意目前只有safari支持尾调用优化，其他浏览器不支持
+
+    // 尾递归
+    function factorial (n) {//需要保存n个调用记录，复杂度为o(n)
+      if (n === 1) return 1;
+      return n * factorial(n - 1);
+    }
+
+    factorial(5) // 120
+
+    function factorial1 (n, total) {
+      if (n === 1) {
+        return total;
+      }
+      return factorial(n - 1, n * total)
+    }
+    factorial1(5, 1)
+
+    // 函数柯里化，意思是将多参数的函数转换成单参数的形式。
+    function currying (fn, n) {
+      return function (m) {
+        return fn.call(this, m, n);
+      };
+    }
+    function tailFactorial (n, total) {
+      if (n === 1) return total;
+      return tailFactorial(n - 1, n * total);
+    }
+    const factorial2 = currying(tailFactorial, 1)
+    factorial(5)
+    //使用es6中的函数默认值
+    function factorial (n, total = 1) {
+      if (n === 1) {
+        return total
+        return factorial(n - 1, n * total)
+      }
+    }
+    factorial(5)
+
+
+    // ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
+
+    // 这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。
+
+    // func.arguments：返回调用时函数的参数。
+    // func.caller：返回调用当前函数的那个函数。
+    // 尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效
+
+    function restricted () {
+      'use strict';
+      restricted.caller;    // 报错
+      restricted.arguments; // 报错
+    }
+
+    // 尾递归的其他实现方法，不一定在严格模式下实现
+    function sum (x, y) {
+      if (y > 0) {
+        return sum(x + 1, y - 1)
+      } else {
+        return x
+      }
+    }
+    console.log(sum(1, 100000));//递归报错
+    // 使用trampoline可以将递归执行转为循环执行
+    // 函数的实现,它接受一个函数f作为参数。只要f执行后返回一个函数，就继续执行。
+    // 注意，这里是返回一个函数，然后执行该函数，而不是函数里面调用函数，这样就避免了递归执行，从而就消除了调用栈过大的问题。
+    function trampoline (f) {
+      while (f && f instanceof Function) {
+        f = f()
+      }
+      return f;
+    }
+
+    // 优化
+    function sum (x, y) {
+      if (y > 0) {
+        return sum.bind(null, x + 1, y - 1);//bind创建一个新的函数
+      } else {
+        return x;
+      }
+    }
+
+    // toString()方法返回函数代码本身，以前会省略注释和空格。
+    function foo () { }
+    console.log(foo.toString()); // function foo() {}
+  </script>
+</body>
+
+</html>
