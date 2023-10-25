@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const resolve2 = Promise.resolve(666)
+    const reject2 = Promise.reject(-1)
+
+    const allSettledArr = Promise.allSettled([resolve2, reject2])
+    console.log(allSettledArr);
+    // [
+    //    { status: 'fulfilled', value: 42 },
+    //    { status: 'rejected', reason: -1 }
+    // ]
+    // 过滤失败请求
+    // const successRequest = allSettledArr.filter(p => p.status === 'fulfilled')
+
+
+    // ES2021 引入了Promise.any()方法。该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。
+
+    // 只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。
+    Promise.any([
+      fetch('https://v8.dev/').then(() => 'home'),
+      fetch('https://v8.dev/blog').then(() => 'blog'),
+      fetch('https://v8.dev/docs').then(() => 'docs')
+    ]).then((first) => {  // 只要有一个 fetch() 请求成功
+      console.log(first);
+    }).catch((error) => { // 所有三个 fetch() 全部请求失败
+      console.log(error);
+    });
+
+    // 中只要有一个变成fulfilled，Promise.any()返回的 Promise 对象就变成fulfilled。如果所有三个操作都变成rejected，那么await命令就会抛出错误。
+
+
+
+
+
+    // promise应用:加载图片
+    const preloadImage = function (path) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = resolve;
+        image.onerror = reject;
+        image.src = path;
+      })
+    }
+    preloadImage("https://www.baidu.com").then(result => console.log(result)).catch(err => console.log(err))
+  </script>
+</body>
+
+</html>
