@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 所谓"异步"，简单说就是一个任务不是连续完成的，可以理解成该任务被人为分成两段，先执行第一段，然后转而执行其他任务，等做好了准备，再回过头执行第二段。
+
+    // 比如，有一个任务是读取文件进行处理，任务的第一段是向操作系统发出请求，要求读取文件。然后，程序执行其他任务，等到操作系统返回文件，再接着执行任务的第二段（处理文件）。
+    // 这种不连续的执行，就叫做异步。
+
+    // 相应地，连续的执行就叫做同步。由于是连续执行，不能插入其他任务，所以操作系统从硬盘读取文件的这段时间，程序只能干等着。
+
+
+
+    // 1.回调函数实现异步
+    const callback = function (err, data) {
+      if (err) throw err;
+      console.log(data);
+    }
+    try {
+      fs.readFile('/etc/txt.html', 'UTF-8', callback)
+    } catch (error) {
+      console.log(error);
+    }
+    // 回调函数存在回调地狱的问题
+    // 多个回调嵌套导致代码耦合度过高
+
+    // 2.promise解决异步
+    try {
+      var readFile = require('xxx.html')
+      readFile(filename)
+        .then(function (data) {
+          console.log(data);
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    } catch (error) {
+      console.log(error);
+    }
+
+
+    // Promise 的最大问题是代码冗余，原来的任务被 Promise 包装了一下，不管什么操作，一眼看去都是一堆then，原来的语义变得很不清楚。
+
+
+    // 3.generator实现异步
+    // 有一种叫做"协程"（coroutine），意思是多个线程互相协作，完成异步任务。
+    // Generator 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。
+    function* gen (x) {
+      try {
+        var y = yield x + 2;
+        return y;
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    var g = gen(1);
+    console.log(g.next());//{value: 3, done: false}
+    g.throw(new Error('outside error'))//让内部报错
+    console.log(g.next());
+
+    // 异步任务的封装
+    var fetch = require('node-fetch')
+    function* gen () {
+      var url = 'www.baidu.com';
+      var result = yield fetch(url);
+      console.log(result);
+    }
+    var g = gen();
+    var result = g.next();
+
+    result.value.then(function (data) {
+      return data.json()
+    }).then(function (data) {
+      g.next(data)
+    })
+    // 上面代码中，首先执行 Generator 函数，获取遍历器对象，然后使用next方法（第二行），执行异步任务的第一阶段。由于Fetch模块返回的是一个 Promise 对象，因此要用then方法调用下一个next方法。
+
+
+
+
+
+
+    // Thunk 函数是自动执行 Generator 函数的一种方法。
+    // 传名调用：传入函数的参数列表先不计算，使用的时候再计算   传值调用：传入函数的函数列表先进行计算，再使用
+
+    // 编译器的“传名调用”实现，往往是将参数放到一个临时函数之中，再将这个临时函数传入函数体。这个临时函数就叫做 Thunk 函数。
+    function f (m) {
+      return m * 2;
+    }
+    f(x + 5)
+    //等同于
+    var thunk = function () {
+      return x + 5;
+    }
+    function f (thunk) {
+      return thunk() * 2;
+    }
+
+   
+
+
+
+  </script>
+</body>
+
+</html>
