@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 类的由来
+    // JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。
+    function Point (x, y) {
+      this.x = x
+      this.y = y
+    }
+    Point.prototype.toString = function () {
+      return '(' + this.x + ',' + this.y + ')'
+    }
+    var p = new Point(3, 4)
+    console.log(p.toString())
+
+    // 基本上，ES6 的class可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+    // 上面的代码用 ES6 的class改写，就是下面这样。
+    class Point1 {
+      constructor(x, y) {
+        this.x = x
+        this.y = y
+      }
+      // Point类除了构造方法，还定义了一个toString()方法。注意，定义toString()方法的时候，前面不需要加上function这个关键字，
+      // 直接把函数定义放进去了就可以了。另外，方法与方法之间不需要逗号分隔，加了会报错
+      toString () {
+        return '(' + this.x + ',' + this.y + ')'
+      }
+    }
+
+    const p1 = new Point1(3, 4)
+    console.log(p1.toString())
+
+    // 构造函数的prototype属性，在 ES6 的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面
+    class Point3 {
+      constructor() {
+        // ...
+      }
+      toString () {
+        // ....
+      }
+      toValue () {
+        // ....
+      }
+    }
+    // 等同于
+    Point3.prototype = {
+      constructor () { },
+      toString () { },
+      toValue () { },
+    }
+
+    class B { }
+    const b = new B()
+
+    b.constructor === B.prototype.constructor // true
+
+    // 由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign()方法可以很方便地一次向类添加多个方法。
+    Object.assign(Point.prototype, {
+      toString () {
+        console.log('caonima')
+      },
+      toValue () {
+        console.log('EAWF')
+      },
+    })
+    const p4 = new Point(3, 3)
+    console.log(p4.toValue())
+
+    // 另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
+
+    // constructor()方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor()方法，如果没有显式定义，一个空的constructor()方法会被默认添加。
+    // class Point {
+    // }
+
+    // // 等同于
+    // class Point {
+    //   constructor() {}
+    // }
+
+    // 类必须使用new调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。
+
+    // constructor()方法默认返回实例对象（即this），完全可以指定返回另外一个对象
+    class Foo {
+      constructor() {
+        return Object.create(null)
+      }
+    }
+    const f = new Foo()
+    console.log(f)
+
+    // 类的属性和方法，除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）。
+    console.log(new Point1(2, 5)) //返回Point1 { x: 2, y: 5 }
+    const p5 = new Point1(2, 3)
+    console.log(p5.hasOwnProperty('x'), p5.hasOwnProperty('y')) //true
+    console.log(p5.hasOwnProperty('toString')) //false  因为继承了Point的实例对象
+    console.log(p5.__proto__.hasOwnProperty('toString')) //true
+
+    // 实例属性的新写法
+    // ES2022 为类的实例属性，又规定了一种新写法。实例属性现在除了可以定义在constructor()方法里面的this上面，也可以定义在类内部的最顶层。
+    // 老写法
+    class IncreaseCounter {
+      constructor() {
+        this._count = 0
+      }
+      get value () {
+        console.log('get current value')
+        return this._count
+      }
+      increment () {
+        this._count++
+      }
+    }
+    // 新写法
+    class IncreaseCounter1 {
+      _count = 0
+      get value () {
+        console.log('get current value')
+        return this._count
+      }
+      increment () {
+        this._count++
+      }
+    }
+    // 这种新写法的好处是，所有实例对象自身的属性都定义在类的头部，看上去比较整齐，一眼就能看出这个类有哪些实例属性。
+
+    // 取值函数（getter）和存值函数（setter
+    // 与 ES5 一样，在“类”的内部可以使用get和set关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为
+    class MyClass {
+      constructor(prop) {
+        this.prop = prop
+      }
+      get prop () {
+        console.log('get')
+        return 'getter'
+      }
+      set prop (value) {
+        console.log('setter:', value)
+      }
+    }
+    const mc = new MyClass(1)
+    console.log(mc.prop)
+    console.log((mc.prop = 1))
+
+    // 与函数一样，类也可以使用表达式的形式定义。
+
+    // 类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+    class Foo2 {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y
+      }
+      static staticMethod () {
+        return 'hello'
+      }
+      // 静态方法可以与非静态方法重名。
+      // staticMethod() {
+      //   return 'hello'
+      // }
+    }
+
+    const f3 = new Foo2(1, 2)
+    console.log(Foo2);
+    console.log(f3);
+    try {
+      console.log(f3.staticMethod()) //TypeError: f3.staticMethod is not a function
+    } catch (error) {
+      console.log(error)
+    }
+    // 父类的静态方法，可以被子类继承。
+    class Foo3 extends Foo2 {
+      // 静态方法也是可以从super对象上调用的。
+      // super即是父类
+      static classMethod () {
+        return super.staticMethod() + ',too'
+      }
+    }
+    console.log(Foo3.staticMethod());//hello
+    console.log(Foo3.classMethod());//hello,too
+
+
+
+    // 静态属性指的是 Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性。
+    // 定义一个静态属性
+    Foo2.staticPro = 'hawkisn'
+
+    const ff2 = new Foo2(1, 2)
+    console.log(ff2.hasOwnProperty(name));//false
+    console.log(Foo2.hasOwnProperty('staticPro'));//true
+    // 新写法
+    class MyClass2 {
+      static myStaticProp = 12;
+    }
+
+
+
+
+
+    // 私有属性和私有方法
+    // ES2022正式为class添加了私有属性，方法是在属性名之前使用#表示。
+    class IncreaseCounter3 {
+      // 私有属性
+      #count = 0;
+      get value () {
+        console.log('getter');
+        return this.#count;
+      }
+      increment () {
+        this.#count++;
+      }
+      // 私有方法
+      #sum () {
+        return this.#count
+      }
+      // 私有属性不限于从this引用，只要是在类的内部，实例也可以引用私有属性。
+      static getPrivateValue (ic3) {
+        return ic3.#count
+      }
+    }
+    const ic3 = new IncreaseCounter3()
+    console.log(ic3);
+
+
+    // 直接访问某个类不存在的私有属性会报错，但是访问不存在的公开属性不会报错。这个特性可以用来判断，某个对象是否为类的实例。
+    class C {
+      #brand;
+      static isC (obj) {
+        try {
+          obj.#brand;
+          return true
+        } catch (error) {
+          console.log(error);
+          return false
+        }
+      }
+    }
+    // 因此，try...catch结构可以用来判断某个私有属性是否存在。但是，这样的写法很麻烦，代码可读性很差，ES2022 改进了in运算符，使它也可以用来判断私有属性。
+    class C2 {
+      #brand;
+      static isC (obj) {
+        if (#brand in obj) {
+          return true
+        } else {
+          return false;
+        }
+      }
+    }
+
+    // 类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格模式可用。考虑到未来所有的代码，其实都是运行在模块之中，所以 ES6 实际上把整个语言升级到了严格模式。
+
+    // 不存在提升
+
+    // 静态属性的一个问题是，如果它有初始化逻辑，这个逻辑要么写在类的外部，要么写在constructor()方法里面。
+
+    // ES2022 引入了静态块（static block），允许在类的内部设置一个代码块，在类生成时运行且只运行一次，主要作用是对静态属性进行初始化。以后，新建类的实例时，这个块就不运行了。
+
+
+    // 由于本质上，ES6 的类只是 ES5 的构造函数的一层包装，所以函数的许多特性都被Class继承，包括name属性。
+    console.log(Point.name);
+
+    // 类的方法内部如果含有this，它默认指向类的实例。但是，必须非常小心，一旦单独使用该方法，很可能报错
+    class Logger {
+      printName (name = 'there') {
+        this.print(`Hello ${name}`);
+      }
+
+      print (text) {
+        console.log(text);
+      }
+    }
+
+    const logger = new Logger();
+    const { printName } = logger;
+    printName(); // TypeError: Cannot read property 'print' of undefined
+    // printName方法中的this，默认指向Logger类的实例。但是，如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境
+    // （由于 class 内部是严格模式，所以 this 实际指向的是undefined），从而导致找不到print方法而报错。
+
+    // 解决方法
+    // 绑定
+    class Logger {
+      constructor() {
+        this.printName = this.printName.bind(this);
+      }
+
+      // ...
+    }
+    // 使用箭头函数
+    class Obj {
+      constructor() {
+        this.getThis = () => this;
+      }
+    }
+    const myObj = new Obj();
+    myObj.getThis() === myObj // true
+
+    
+  </script>
+</body>
+
+</html>
