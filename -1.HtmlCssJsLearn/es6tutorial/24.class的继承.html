@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // Class 可以通过extends关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。/
+    class Point {
+      constructor(x) {
+        this.x = x
+      }
+    }
+    class colorPoint extends Point {
+      constructor(x, y, color) {
+        // 子类必须在constructor()方法中调用super()，否则就会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造，
+        // 得到与父类同样的实例属性和方法，然后再对其进行加工，添加子类自己的实例属性和方法。如果不调用super()方法，子类就得不到自己的this对象。
+        super(x)//调用父类的constructor()
+        this.color = color;
+        this.y = y
+      }
+      toString () {
+        return this.color + '(' + this.x + ')' + this.y
+      }
+    }
+    const cp = new colorPoint(5, 2, 'green')
+    console.log(cp.toString());//green(5)2
+
+    // 为什么子类的构造函数，一定要调用super()？原因就在于 ES6 的继承机制，与 ES5 完全不同。ES5 的继承机制，是先创造一个独立的子类的实例对象，
+    // 然后再将父类的方法添加到这个对象上面，即“实例在前，继承在后”。ES6 的继承机制，则是先将父类的属性和方法，加到一个空的对象上面，然后再将该对象作为子类的实例，即“继承在前，实例在后”。这就是为什么 ES6 的继承必须先调用super()方法，因为这一步会生成一个继承父类的this对象，没有这一步就无法继承父类。
+
+
+    // 如果子类没有定义constructor()方法，这个方法会默认添加，并且里面会调用super()。也就是说，不管有没有显式定义，任何一个子类都有constructor()方法。
+
+    // 有了子类的定义，就可以生成子类的实例了。
+    console.log(cp instanceof colorPoint);//true
+    console.log(cp instanceof Point);//true
+
+
+
+    // 父类所有的属性和方法，都会被子类继承，除了私有的属性和方法
+    // 果父类定义了私有属性的读写方法，子类就可以通过这些方法，读写私有属性。比如get和set方法
+    // 父类的静态属性和静态方法，也会被子类继承
+    // 静态属性是通过浅拷贝拷贝实现继承的
+    class A { static foo = 100; }
+    class B extends A {
+      constructor() {
+        super();
+        B.foo--;//用this.foo访问不到,因为静态属性只能通过类名,实例是无法访问的
+      }
+    }
+
+    const b = new B();
+    console.log(B.foo);//99
+    console.log(A.foo);//100
+    // foo是 A 类的静态属性，B 类继承了 A 类，因此也继承了这个属性。但是，在 B 类内部操作B.foo这个静态属性，
+    // 影响不到A.foo，原因就是 B 类继承静态属性时，会采用浅拷贝，拷贝父类静态属性的值，因此A.foo和B.foo是两个彼此独立的属性。
+
+
+
+    // 但是，由于这种拷贝是浅拷贝，如果父类的静态属性的值是一个对象，那么子类的静态属性也会指向这个对象，因为浅拷贝只会拷贝对象的内存地址。
+    class A1 {
+      constructor() {
+        this.x = 1
+      }
+      static foo = { n: 100 };
+      static print () {
+        console.log('staticPrint');
+      }
+    }
+    A1.prototype.prop = 333
+    class B1 extends A1 {
+      constructor() {
+        // construct()调用super()的作用是形成子类的this对象，把父类的实例属性和方法放到这个this对象上面。子类在调用super()之前，
+        // 是没有this对象的，任何对this的操作都要放在super()的后面。
+
+        // 注意，这里的super虽然代表了父类的构造函数，但是因为返回的是子类的this（即子类的实例对象），所以super内部的this代表子类的实例，而不是父类的实例，
+        // 这里的super()相当于A.prototype.constructor.call(this)（在子类的this上运行父类的构造函数）。
+
+        // 作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。
+        super();
+        try {
+          // 这里需要注意，由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
+          console.log(super.foo.n);//读不到
+        } catch (error) {
+          console.log(error);
+        }
+        //但是如果定义在父类原型对象的属性就能读到
+        console.log(super.prop);//333
+        B1.foo.n--;
+        // ES6 规定，在子类普通方法中通过super调用父类的方法时，方法内部的this指向当前的子类实例。
+        this.x = 2
+        // 由于this指向子类实例，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性。
+        // super.x赋值为3，这时等同于对this.x赋值为3
+        super.x = 3
+      }
+
+
+
+      static getFather () {
+        // 在子类的静态方法中通过super调用父类的方法时，方法内部的this指向当前的子类，而不是子类的实例。
+        super.print()
+      }
+    }
+    const b1 = new B1();
+    console.log(B1.foo.n);//99
+    console.log(A1.foo.n);//99
+
+
+    // Object.getPrototypeOf()方法可以用来从子类上获取父类。
+    console.log(Object.getPrototypeOf(B1) == A1);
+
+    console.log(b1.x);//2
+    console.log(B1.getFather());
+
+
+
+    // 类的 prototype 属性和__proto__属性
+    // 大多数浏览器的 ES5 实现之中，每一个对象都有__proto__属性，指向对应的构造函数的prototype属性。Class 作为构造函数的语法糖，
+    // 同时有prototype属性和__proto__属性，因此同时存在两条继承链。
+
+    // （1）子类的__proto__属性，表示构造函数的承继，总是指向父类。
+
+    // （2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+
+    class A3 {
+
+    }
+    class B3 extends A3 {
+
+    }
+    const b3 = new B3()
+    const a3 = new A3()
+
+    console.log(B3.prototype === A3);//false
+    console.log(B3.__proto__ === A3);//true
+    console.log(B3.prototype.__proto__ === A3.prototype);//true
+    console.log(a3, b3);
+    // 子类B的__proto__属性指向父类A，子类B的prototype属性的__proto__属性指向父类A的prototype属性。
+    // 这样的结果是因为，类的继承是按照下面的模式实现的。
+    //     class A {
+    // }
+
+    // class B {
+    // }
+
+    // // B 的实例继承 A 的实例
+    // Object.setPrototypeOf(B.prototype, A.prototype); //// 等同于 B.prototype.__proto__ = A.prototype;
+
+
+    // // B 继承 A 的静态属性
+    // Object.setPrototypeOf(B, A);
+
+    // const b = new B();
+
+
+
+    // 原生构造函数的继承
+    // 原生构造函数是指语言内置的构造函数，通常用来生成数据结构。
+    // Boolean()
+    // Number()
+    // String()
+    // Array()
+    // Date()
+    // Function()
+    // RegExp()
+    // Error()
+    // Object()
+    // 以前，这些原生构造函数是无法继承的，比如，不能自己定义一个Array的子类。
+
+    // ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。下面是一个继承Array的例子。
+    class MyArray extends Array {
+      constructor(...args) {
+        const arr = [...args]
+        super(...args)
+        this.count = arr.length
+      }
+      getCount () {
+        return this.count
+      }
+
+
+    }
+    var arr = new MyArray(1, 2, 3)
+    // arr[0] = 12
+    console.log(arr[0]);
+    console.log(arr.getCount());
+
+
+
+
+    // mixin模式的实现
+
+    // Mixin 指的是多个对象合成一个新的对象，新对象具有各个组成成员的接口。它的最简单实现如下。
+    const a = {
+      a: 'a'
+    }
+    const b5 = {
+      b: 'b'
+    }
+    const c = { ...a, ...b5 }
+    console.log(c);
+
+    // 下面是一个更完备的实现，将多个类的接口“混入”（mix in）另一个类
+    function mix (...mixins) {
+      class Mix {
+        constructor() {
+          for (let mixin of mixins) {
+            copyProperties(this, new mixin()); // 拷贝实例属性
+          }
+        }
+      }
+
+      for (let mixin of mixins) {
+        copyProperties(Mix, mixin); // 拷贝静态属性
+        copyProperties(Mix.prototype, mixin.prototype); // 拷贝原型属性
+      }
+
+      return Mix;
+    }
+
+    function copyProperties (target, source) {
+      for (let key of Reflect.ownKeys(source)) {
+        if (key !== 'constructor'
+          && key !== 'prototype'
+          && key !== 'name'
+        ) {
+          let desc = Object.getOwnPropertyDescriptor(source, key);
+          Object.defineProperty(target, key, desc);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
