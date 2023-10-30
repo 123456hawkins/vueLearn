@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- // 浏览器加载
+  // 浏览器的script标签加载
+  
+  // 默认情况下，浏览器是同步加载 JavaScript 脚本，即渲染引擎遇到
+  <script>标签就会停下来，等到执行完脚本，再继续向下渲染。如果是外部脚本，还必须加入脚本下载的时间。
+  // defer与async的区别是：defer要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；async一旦下载完，渲染引擎就会中断渲染，
+  // 执行这个脚本以后，再继续渲染。一句话，defer是“渲染完再执行”，async是“下载完就执行”。另外，如果有多个defer脚本，会按照它们在页面出现的顺序加载，而多个async脚本是不能保证加载顺序的。
+
+
+  // 浏览器加载 ES6 模块，也使用<script>标签，但是要加入type="module"属性 -->
+
+</body>
+<script type="application/javascript" src="path/to/myModule.js" defer>
+</script>
+<script type="application/javascript" src="path/to/myModule.js" async>
+</script>
+<!-- ES6 模块也允许内嵌在网页中，语法行为与加载外部脚本完全一致。 -->
+<script type="module" src="./testgpu.js"></script>
+
+</html>
