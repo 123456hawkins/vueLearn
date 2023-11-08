@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",             // 目标 JavaScript 版本
+    "module": "CommonJS",           // 模块系统 (CommonJS, ES6, ...)
+    "outDir": "./dist",             // 输出目录
+    "rootDir": "./src",             // 源代码目录
+    "strict": true,                 // 启用严格模式
+    "esModuleInterop": true,        // 启用 esModuleInterop
+    "skipLibCheck": true,           // 跳过类型检查
+    "forceConsistentCasingInFileNames": true // 强制一致的文件名大小写
+  },
+  "include": ["src/**/*.ts"],       // 包含的文件或目录
+  "exclude": ["node_modules"]       // 排除的文件或目录
+}
