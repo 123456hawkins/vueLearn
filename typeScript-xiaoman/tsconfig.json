@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "incremental": true,//缓存
+    "tsBuildInfoFile": ".tsbuildinfo",//缓存目录
+    "diagnostics": true,//打印诊断信息
     "target": "ESNext",             // 目标 JavaScript 版本
     "module": "CommonJS",           // 模块系统 (CommonJS, ES6, ...)
     "outDir": "./dist",             // 输出目录
@@ -8,9 +11,11 @@
     "esModuleInterop": true,        // 启用 esModuleInterop
     "skipLibCheck": true,           // 跳过类型检查
     "forceConsistentCasingInFileNames": true ,// 强制一致的文件名大小写
-    "lib": ["ES2015","DOM"]
+    "lib": ["ES2015","DOM"],
+    "removeComments": true
+    
   },
-  "include": ["src/**/*.ts"],       // 包含的文件或目录
+  // "include": ["src/**/*.ts"],       // 包含的文件或目录
   "exclude": ["node_modules"] ,      // 排除的文件或目录
   
 }

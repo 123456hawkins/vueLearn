@@ -1,0 +1,10 @@
+let num = new Number(1);
+let data = new Date();
+let reg = new RegExp(/\w/);
+let error = new Error('错了');
+let xhr = new XMLHttpRequest();
+let div = document.querySelectorAll('div');
+let local = localStorage;
+let lo = location;
+let promise = new Promise((r) => r('hawkisn'));
+let cookie = document.cookie;

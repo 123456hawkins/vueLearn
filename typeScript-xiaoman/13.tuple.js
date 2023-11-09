@@ -1,6 +1,5 @@
-var arr = [2, true];
-// 元组实际应用场景
-var excel = [
+let arr = [2, true];
+let excel = [
     ['hawkins', 'man', 29],
     ['hawkins', 'man', 29],
     ['hawkins', 'man', 29]

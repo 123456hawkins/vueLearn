@@ -1,30 +1,27 @@
-// 动态类型
 function hawkins(a, b) {
     return [a, b];
 }
-var arr = hawkins(2, 3);
+const arr = hawkins(2, 3);
 console.log(arr);
-// 泛型
 function fanxing(a, b) {
     return [a, b];
 }
-var arr2 = fanxing(2, 4);
-var arr3 = fanxing('2', '13');
-var data = {
+const arr2 = fanxing(2, 4);
+const arr3 = fanxing('2', '13');
+let data = {
     msg: 'waefw'
 };
 function add(a, b) {
     return [a, b];
 }
-var arr4 = add(5, false);
+const arr4 = add(5, false);
 console.log(arr4);
-// axios例子
-var axios = {
-    get: function (url) {
-        return new Promise(function (resolve, reject) {
-            var xhr = new XMLHttpRequest();
+const axios = {
+    get(url) {
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
             xhr.open('GET', url);
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = () => {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     resolve(JSON.parse(xhr.responseText));
                 }
@@ -33,4 +30,4 @@ var axios = {
         });
     }
 };
-axios.get('./data.json').then(function (res) { console.log(res.code); });
+axios.get('./data.json').then(res => { console.log(res.code); });

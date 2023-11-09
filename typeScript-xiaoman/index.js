@@ -1,2 +1,2 @@
-var str = 'hawkins';
+let str = 'hawkins';
 console.log(str);

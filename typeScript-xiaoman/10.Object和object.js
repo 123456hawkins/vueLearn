@@ -1,7 +1,10 @@
-// Object表示所有数据类型的元类型
-var a = 123;
-var a1 = '123';
-var a2 = true;
-var a3 = Symbol();
-var a4 = new Map();
-
+let a = 123;
+let a1 = '123';
+let a2 = true;
+let a3 = Symbol();
+let a4 = new Map();
+let b = [];
+let b1 = {};
+let b2 = () => 123;
+let c;
+let c1 = new Object;
