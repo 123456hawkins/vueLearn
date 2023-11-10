@@ -4,7 +4,7 @@
     "tsBuildInfoFile": ".tsbuildinfo",//缓存目录
     "diagnostics": true,//打印诊断信息
     "target": "ESNext",             // 目标 JavaScript 版本
-    "module": "CommonJS",           // 模块系统 (CommonJS, ES6, ...)
+    "module": "ES2015",           // 模块系统 (CommonJS, ES6, ...)
     "outDir": "./dist",             // 输出目录
     "rootDir": "./src",             // 源代码目录
     "strict": false,                 // 启用严格模式

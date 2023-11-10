@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sources":["../src/main.ts"],"sourcesContent":["const hawefaw: string = 'hawkins'\r\nconsole.log(hawefaw);\r\nconsole.log(process.env.NODE_ENV);\r\n"],"names":["console","log"],"mappings":"gXACAA,QAAQC,IADgB,WAExBD,QAAQC,IAAI"}
